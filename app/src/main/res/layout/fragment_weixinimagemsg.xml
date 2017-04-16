@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/weiXinImageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/title_weixin_imagemsg" />
+
+    <TextView
+        android:id="@+id/weiXinImageSendToTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weiXinImageTitle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/sms_sendto" />
+
+    <EditText
+        android:id="@+id/weiXinImageSendToEdit"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignTop="@+id/weiXinImageSendToTextView"
+        android:layout_marginLeft="80dp"
+        android:hint="@string/hint_weixin_input_user_name"
+        android:ems="10" >
+        
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/weiXinImageIndexTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weiXinImageSendToTextView"
+        android:layout_below="@+id/weiXinImageSendToTextView"
+        android:layout_marginTop="50dp"
+        android:text="@string/image_index" />
+
+    <EditText
+        android:id="@+id/weiXinImageIndexEdit"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/weiXinImageSendToEdit"
+        android:layout_alignTop="@+id/weiXinImageIndexTextView"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/weiXinImageRepeatTimesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weiXinImageSendToTextView"
+        android:layout_below="@+id/weiXinImageIndexEdit"
+        android:layout_marginTop="10dp"
+        android:text="@string/sms_repeat_times" />
+
+    <EditText
+        android:id="@+id/weiXinImageRepeatTimesEdit"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/weiXinImageIndexEdit"
+        android:layout_alignTop="@+id/weiXinImageRepeatTimesTextView"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/weiXinImageStartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weiXinImageRepeatTimesEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="@string/sms_button"
+        android:textSize="50sp" />
+
+    <CheckBox
+        android:id="@+id/addWeiXinImageTaskCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/caption_add_task" />
+
+</RelativeLayout>

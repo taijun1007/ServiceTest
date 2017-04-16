@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/weiXinTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/title_weixin_textmsg" />
+
+    <TextView
+        android:id="@+id/weiXinSendToTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weiXinTitle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/sms_sendto" />
+
+    <EditText
+        android:id="@+id/weiXinSendToEdit"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignTop="@+id/weiXinSendToTextView"
+        android:layout_marginLeft="80dp"
+        android:hint="@string/hint_weixin_input_user_name"
+        android:ems="10">
+        
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/weiXinContentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weiXinSendToTextView"
+        android:layout_below="@+id/weiXinSendToTextView"
+        android:layout_marginTop="50dp"
+        android:text="@string/sms_content" />
+
+    <EditText
+        android:id="@+id/weiXinContentEdit"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weiXinSendToEdit"
+        android:layout_alignTop="@+id/weiXinContentTextView"
+        android:ems="10"/>
+
+    <CheckBox
+        android:id="@+id/checkLongWeiXinMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weiXinContentEdit"
+        android:layout_below="@+id/weiXinContentEdit"
+        android:layout_marginTop="10dp"
+        android:text="@string/sms_is_long_sms" />
+
+    <TextView
+        android:id="@+id/weiXinRepeatTimesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weiXinSendToTextView"
+        android:layout_below="@+id/checkLongWeiXinMsg"
+        android:layout_marginTop="10dp"
+        android:text="@string/sms_repeat_times" />
+
+    <EditText
+        android:id="@+id/weiXinRepeatTimesEdit"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/weiXinContentEdit"
+        android:layout_alignTop="@+id/weiXinRepeatTimesTextView"
+        android:ems="10"/>
+
+    <Button
+        android:id="@+id/weiXinStartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weiXinRepeatTimesEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="@string/sms_button"
+        android:textSize="50sp" />
+
+    <CheckBox
+        android:id="@+id/addWeiXinTextTaskCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/caption_add_task" />
+
+</RelativeLayout>

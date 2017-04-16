@@ -1,0 +1,62 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_main.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_main.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\gridview_item_applist.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\gridview_item_applist.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listitem_task.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\listitem_task.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_weixinimagemsg.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_weixinimagemsg.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listitem_selectedtestcase.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\listitem_selectedtestcase.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_weixintextmsg.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_weixintextmsg.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_call.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_call.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_sms.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_sms.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_serverurlsetup.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_serverurlsetup.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_baidumap.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\activity_baidumap.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_register.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_register.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_tasklist.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_tasklist.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_setup.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_setup.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_ping.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_ping.xml"
+    }
+]

@@ -1,0 +1,19 @@
+#Sun Apr 16 18:21:09 GMT+08:00 2017
+renamed.5=classes5.dex
+renamed.4=classes2.dex
+renamed.3=classes.dex
+renamed.2=classes3.dex
+renamed.1=classes4.dex
+renamed.0=classes6.dex
+base.5=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\httpmime-4.1.2_f05940b5017fe51ef9c3f3a059c51397f10fc90b
+base.4=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\internal_impl-22.2.1_21d39fd796089c5c8245ad4aa21c52f519a0d25c
+base.3=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_0d334255ae03820534e803850d16554bcf05b9b1
+base.2=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-annotations-22.2.1_5823151b520ed8151863232cc5129d95a2387973
+base.1=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\BaiduLBS_Android_09ade2dc038ffad3fad5946e1437cf4a8515b1d6
+base.0=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\IndoorscapeAlbumPlugin_252bf1dfb3908c4576ecf2931088b560d53bfd92
+file.5=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\httpmime-4.1.2_f05940b5017fe51ef9c3f3a059c51397f10fc90b\\classes.dex
+file.4=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\internal_impl-22.2.1_21d39fd796089c5c8245ad4aa21c52f519a0d25c\\classes.dex
+file.3=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_0d334255ae03820534e803850d16554bcf05b9b1\\classes.dex
+file.2=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-annotations-22.2.1_5823151b520ed8151863232cc5129d95a2387973\\classes.dex
+file.1=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\BaiduLBS_Android_09ade2dc038ffad3fad5946e1437cf4a8515b1d6\\classes.dex
+file.0=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\IndoorscapeAlbumPlugin_252bf1dfb3908c4576ecf2931088b560d53bfd92\\classes.dex

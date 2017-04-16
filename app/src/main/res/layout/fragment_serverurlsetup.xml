@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/setupServerUrlTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/title_setup_serverurl" />
+
+    <TextView
+        android:id="@+id/serverUrlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setupServerUrlTitle"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/caption_input_url" />
+
+    <EditText
+        android:id="@+id/serverUrlEdit"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/serverUrlTextView"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:textSize="12dp" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/saveUrlButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/serverUrlEdit"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="90dp"
+        android:text="@string/caption_save" />
+
+    <Button
+        android:id="@+id/pingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/saveUrlButton"
+        android:layout_alignTop="@+id/saveUrlButton"
+        android:layout_marginLeft="20dp"
+        android:text="@string/caption_ping" />
+
+    <TextView
+        android:id="@+id/pingResultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pingButton"
+        android:layout_marginTop="20dp"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/currentTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/caption_current_time"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/displayCurrentTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/currentTimeTextView"
+        android:layout_toRightOf="@+id/currentTimeTextView"
+        android:textColor="#FF0000"
+        android:textSize="12dp" />
+
+</RelativeLayout>

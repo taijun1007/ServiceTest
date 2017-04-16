@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_launcher.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\apps.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\apps.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\su.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\su.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\sendtext.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\sendtext.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\location.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\location.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\cmlab.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\cmlab.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\phone.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\phone.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\note.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\note.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\settings.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\settings.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ping.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\ping.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\server.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\server.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\register.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\register.png"
+    }
+]

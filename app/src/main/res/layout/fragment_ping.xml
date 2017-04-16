@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <CheckBox
+        android:id="@+id/addPingTaskCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/caption_add_task" />
+
+    <TextView
+        android:id="@+id/pingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/title_ping" />
+
+    <TextView
+        android:id="@+id/pingUrlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pingTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/caption_url" />
+
+    <EditText
+        android:id="@+id/pingUrlEdit"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pingUrlTextView"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:textSize="12dp" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/pingCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pingUrlEdit"
+        android:layout_alignLeft="@+id/pingUrlTextView"
+        android:layout_marginTop="20dp"
+        android:text="@string/caption_count" />
+
+    <EditText
+        android:id="@+id/pingCountEdit"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/pingCountTextView"
+        android:layout_toRightOf="@+id/pingCountTextView"
+        android:layout_marginLeft="10dp"
+        android:ems="10" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pingCountEdit"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/pingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_ping" />
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_stop" />
+
+        <Button
+            android:id="@+id/deletePingTxtButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_delete_pingtxt" />
+
+    </LinearLayout>
+
+</RelativeLayout>

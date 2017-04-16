@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\sms.jpg",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\sms.jpg"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\weixin.jpg",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\weixin.jpg"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\sendpic.jpg",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-hdpi\\sendpic.jpg"
+    }
+]

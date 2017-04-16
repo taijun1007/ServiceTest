@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/registerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/title_register"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/registerIDTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="12dp" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerIDTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/caption_register" />
+
+    <TextView
+        android:id="@+id/deviceInfoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/registerButton"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="70dp"
+        android:ellipsize="end"
+        android:maxLines="20"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/currentTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/caption_current_time"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/displayCurrentTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/currentTimeTextView"
+        android:layout_toRightOf="@+id/currentTimeTextView"
+        android:textColor="#FF0000"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/gpsTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/currentTimeTextView"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:text="@string/caption_gps_time"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/displayGpsTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/gpsTimeTextView"
+        android:layout_toRightOf="@+id/gpsTimeTextView"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/gpsInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gpsTimeTextView"
+        android:layout_marginTop="70dp"
+        android:text="@string/caption_gps_info"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/displayGpsInfoTextView"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gpsInfoTextView"
+        android:maxLines="7"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:textSize="12dp" />
+
+    <Chronometer
+        android:id="@+id/chronometer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gpsTimeTextView"
+        android:layout_alignRight="@+id/deviceInfoTextView"
+        android:visibility="gone" />
+
+</RelativeLayout>

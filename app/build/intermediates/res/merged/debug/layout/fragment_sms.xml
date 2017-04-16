@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/smsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/sms_title" />
+
+    <TextView
+        android:id="@+id/smsSendToTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/smsTitle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/sms_sendto" />
+
+    <EditText
+        android:id="@+id/smsSendToEdit"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignTop="@+id/smsSendToTextView"
+        android:layout_marginLeft="80dp"
+        android:ems="10" >
+        
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/smsContentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/smsSendToTextView"
+        android:layout_below="@+id/smsSendToTextView"
+        android:layout_marginTop="50dp"
+        android:text="@string/sms_content" />
+
+    <EditText
+        android:id="@+id/smsContentEdit"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/smsSendToEdit"
+        android:layout_alignTop="@+id/smsContentTextView"
+        android:ems="10" />
+
+    <CheckBox
+        android:id="@+id/checkLongSMS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/smsContentEdit"
+        android:layout_below="@+id/smsContentEdit"
+        android:layout_marginTop="10dp"
+        android:text="@string/sms_is_long_sms" />
+
+    <TextView
+        android:id="@+id/smsRepeatTimesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/smsSendToTextView"
+        android:layout_below="@+id/checkLongSMS"
+        android:layout_marginTop="10dp"
+        android:text="@string/sms_repeat_times" />
+
+    <EditText
+        android:id="@+id/smsRepeatTimesEdit"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/smsContentEdit"
+        android:layout_alignTop="@+id/smsRepeatTimesTextView"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/smsStartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/smsRepeatTimesEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="@string/sms_button"
+        android:textSize="50sp" />
+
+    <CheckBox
+        android:id="@+id/addSMSTaskCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/caption_add_task" />
+
+</RelativeLayout>

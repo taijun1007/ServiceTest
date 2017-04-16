@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/setUpTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:text="@string/title_setup" />
+
+    <EditText
+        android:id="@+id/setUpSDCardPathEdit"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/setUpTitleTextView"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:textSize="12dp" >
+        
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/setUpSDCardPathTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/setUpSDCardPathEdit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/setUpSDCardPathEdit"
+        android:text="@string/title_sdcard_path" />
+
+    <EditText
+        android:id="@+id/setUpTestCasePathEdit"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/setUpSDCardPathEdit"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/setUpTestCasePathTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/setUpTestCasePathEdit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/setUpTestCasePathEdit"
+        android:text="@string/title_testcase_path" />
+
+    <EditText
+        android:id="@+id/setUpTestCaseFileNameEdit"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/setUpTestCasePathEdit"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/setUpTestCaseFileNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/setUpTestCaseFileNameEdit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/setUpTestCaseFileNameEdit"
+        android:text="@string/title_testcase_filename" />
+
+    <EditText
+        android:id="@+id/setUpParameterPathEdit"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/setUpTestCaseFileNameEdit"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/setUpParameterPathTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/setUpParameterPathEdit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/setUpParameterPathEdit"
+        android:text="@string/title_parameter_path" />
+
+    <EditText
+        android:id="@+id/setUpParameterFileNameEdit"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/setUpParameterPathEdit"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/setUpParameterFileNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/setUpParameterFileNameEdit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/setUpParameterFileNameEdit"
+        android:text="@string/title_parameter_filename" />
+
+    <EditText
+        android:id="@+id/setUpTaskPathEdit"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/setUpParameterFileNameEdit"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/setUpTaskPathTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/setUpTaskPathEdit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/setUpTaskPathEdit"
+        android:text="@string/title_task_path" />
+
+    <EditText
+        android:id="@+id/setUpTaskFileNameEdit"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/setUpTaskPathEdit"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/setUpTaskFileNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/setUpTaskFileNameEdit"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/setUpTaskFileNameEdit"
+        android:text="@string/title_task_filename" />
+
+    <Button
+        android:id="@+id/setUpSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setUpTaskFileNameEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="@string/caption_save" />
+
+</RelativeLayout>

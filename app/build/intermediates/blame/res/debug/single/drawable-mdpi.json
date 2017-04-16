@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\su.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\su.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\register.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\register.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\server.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\server.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\apps.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\apps.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\phone.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\phone.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\location.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\location.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\settings.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\settings.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ping.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\ping.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\sendtext.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\sendtext.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\note.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\note.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\cmlab.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\cmlab.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
+    }
+]

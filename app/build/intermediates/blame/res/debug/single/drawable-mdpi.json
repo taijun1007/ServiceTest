@@ -4,6 +4,10 @@
         "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\su.png"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\trafficyes.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\trafficyes.png"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\register.png",
         "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\register.png"
     },
@@ -20,6 +24,10 @@
         "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\phone.png"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\weixingmap.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\weixingmap.png"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\location.png",
         "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\location.png"
     },
@@ -30,6 +38,14 @@
     {
         "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ping.png",
         "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\ping.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\shiliangmap.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\shiliangmap.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\trafficno.png",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\drawable-mdpi\\trafficno.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\sendtext.png",

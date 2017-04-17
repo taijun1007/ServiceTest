@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:2:1-140:12
+ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:2:1-145:12
 	package
 		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:3:5-36
 		INJECTED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml
@@ -156,12 +156,16 @@ uses-permission#android.permission.WAKE_LOCK
 ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:44:5-68
 	android:name
 		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:44:22-65
+uses-permission#android.permission.BIND_ACCESSIBILITY_SERVICE
+ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:45:5-84
+	android:name
+		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:45:22-82
 uses-feature#android.hardware.camera
 ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:48:5-60
 	android:name
 		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:48:19-57
 application
-ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:50:5-138:19
+ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:50:5-143:19
 MERGED from [com.android.support:support-v4:22.2.1] C:\Users\hunt\.android\build-cache\d7a3f5081cef178743418afa3c87051728d1a108\output\AndroidManifest.xml:22:5-20
 	android:label
 		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:54:9-41
@@ -182,7 +186,7 @@ ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml
 activity#com.cmlab.servicetest.MainActivity
 ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:59:9-68:20
 	android:label
-		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:61:13-45
+		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:61:13-55
 	android:launchMode
 		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:62:13-44
 	android:name
@@ -317,3 +321,15 @@ action#com.cmlab.servicetest.ListenerService
 ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:135:17-80
 	android:name
 		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:135:25-77
+service#com.cmlab.servicetest.UiControlAccessibilityService
+ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:138:9-142:19
+	android:name
+		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:138:18-63
+intent-filter#android.accessibilityservice.AccessibilityService
+ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:139:13-141:29
+	android:priority
+		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:139:28-51
+action#android.accessibilityservice.AccessibilityService
+ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:140:17-91
+	android:name
+		ADDED from D:\AndroidStudioProjects\ServiceTest\app\src\main\AndroidManifest.xml:140:25-89

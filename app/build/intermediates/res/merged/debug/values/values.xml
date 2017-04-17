@@ -72,6 +72,7 @@
     <string name="hint_weixin_input_user_name">请输入微信联系人姓名</string>
     <string name="hint_write_jsonfile_error">文件可能没有写成功！</string>
     <string name="image_index">图片索引：</string>
+    <string name="main_activity_name">测试吧(Build_2017.4.17)</string>
     <string name="main_switch_default">木有了！</string>
     <string name="map">地图</string>
     <string name="network_type_1xrtt">1xRTT网络</string>

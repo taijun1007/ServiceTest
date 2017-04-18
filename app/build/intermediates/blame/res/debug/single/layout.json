@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_weixinimagemsg.xml",
+        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_weixinimagemsg.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_main.xml",
         "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_main.xml"
     },
@@ -10,10 +14,6 @@
     {
         "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listitem_task.xml",
         "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\listitem_task.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_weixinimagemsg.xml",
-        "source": "D:\\AndroidStudioProjects\\ServiceTest\\app\\src\\main\\res\\layout\\fragment_weixinimagemsg.xml"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",

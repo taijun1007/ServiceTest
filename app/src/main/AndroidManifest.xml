@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="22" />
     
     <permission android:name="com.cmlab.servicetest.PRIVATE"
@@ -34,7 +34,6 @@
     <uses-permission android:name="android.permission.SET_TIME_ZONE" />
     <uses-permission android:name="com.cmlab.servicetest.PRIVATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
@@ -42,7 +41,6 @@
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"/>
     
     
     <uses-feature android:name="android.hardware.camera" />
@@ -135,10 +133,16 @@
                 <action android:name="com.cmlab.servicetest.ListenerService" />
             </intent-filter>
         </service>
-        <service android:name=".UiControlAccessibilityService">
+        <service android:name=".UiControlAccessibilityService"
+            android:enabled="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter android:priority="1000">
                 <action android:name="android.accessibilityservice.AccessibilityService"/>
             </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/myaccessibility" />
         </service>
     </application>
 

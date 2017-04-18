@@ -1,4 +1,4 @@
-#Tue Apr 18 00:16:13 GMT+08:00 2017
+#Tue Apr 18 14:30:00 CST 2017
 base.0=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
 file.0=D\:\\AndroidStudioProjects\\ServiceTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

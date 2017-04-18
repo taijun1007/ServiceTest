@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 
 /**
@@ -20,6 +21,7 @@ public class MapActivity extends Activity {
     ImageView mTrafficImageView = null;
     boolean isShiliangmap;
     boolean isTrafficNo;
+    BaiduMap mBaiduMap = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,15 +34,20 @@ public class MapActivity extends Activity {
         mTrafficImageView.setImageResource(R.drawable.trafficno);
         isShiliangmap = true;
         isTrafficNo = true;
+        mBaiduMap = mMapView.getMap();
+        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+        mBaiduMap.setTrafficEnabled(false);
         mMapTypeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isShiliangmap == true) {
                     isShiliangmap = false;
                     mMapTypeImageView.setImageResource(R.drawable.weixingmap);
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
                 } else {
                     isShiliangmap = true;
                     mMapTypeImageView.setImageResource(R.drawable.shiliangmap);
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
                 }
             }
         });
@@ -50,9 +57,11 @@ public class MapActivity extends Activity {
                 if (isTrafficNo == true) {
                     isTrafficNo = false;
                     mTrafficImageView.setImageResource(R.drawable.trafficyes);
+                    mBaiduMap.setTrafficEnabled(true);
                 } else {
                     isTrafficNo = true;
                     mTrafficImageView.setImageResource(R.drawable.trafficno);
+                    mBaiduMap.setTrafficEnabled(false);
                 }
             }
         });

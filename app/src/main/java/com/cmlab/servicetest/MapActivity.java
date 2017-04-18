@@ -2,7 +2,6 @@ package com.cmlab.servicetest;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -24,7 +23,7 @@ public class MapActivity extends Activity {
     BaiduMap mBaiduMap = null;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baidumap);
         mMapView = (MapView) findViewById(R.id.bmapView);

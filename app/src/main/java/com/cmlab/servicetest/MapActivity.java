@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 
@@ -21,6 +24,22 @@ public class MapActivity extends Activity {
     boolean isShiliangmap;
     boolean isTrafficNo;
     BaiduMap mBaiduMap = null;
+
+    public LocationClient mLocationClient = null;
+    public BDLocationListener myListener = new MyLocationListener();
+
+    private class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+
+        }
+
+        @Override
+        public void onConnectHotSpotMessage(String s, int i) {
+
+        }
+    }
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -64,6 +83,8 @@ public class MapActivity extends Activity {
                 }
             }
         });
+        mLocationClient = new LocationClient(getApplicationContext());
+        mLocationClient.registerLocationListener(myListener);
     }
 
     @Override

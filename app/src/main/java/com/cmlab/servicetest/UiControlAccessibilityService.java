@@ -5,6 +5,8 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
+import com.cmlab.config.ConfigTest;
+
 /**
  * Created by hunt on 2017/4/17.
  */
@@ -28,6 +30,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
+        //验证各种操作和变化会引起的事件类型
         switch (eventType) {
             case AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED:
                 Toast.makeText(this, "TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED", Toast.LENGTH_SHORT).show();
@@ -121,6 +124,51 @@ public class UiControlAccessibilityService extends AccessibilityService {
             case AccessibilityEvent.TYPE_TOUCH_INTERACTION_START:
                 Toast.makeText(this, "TYPE_TOUCH_INTERACTION_START", Toast.LENGTH_SHORT).show();
                 break;
+        }
+        //分APP进行处理
+        String appPackageName = (String) event.getPackageName();
+        switch (appPackageName) {
+            case "com.ting.mp3.android": //百度音乐
+//                Toast.makeText(this, "百度音乐", Toast.LENGTH_SHORT).show();
+                break;
+            case "air.tv.douyu.android":  //斗鱼
+//                Toast.makeText(this, "斗鱼", Toast.LENGTH_SHORT).show();
+                break;
+            case "com.tencent.mm":  //微信
+//                Toast.makeText(this, "微信", Toast.LENGTH_SHORT).show();
+                break;
+            case "com.android.phone":  //电话
+//                Toast.makeText(this, "电话", Toast.LENGTH_SHORT).show();
+                break;
+            case "com.android.incallui":  //电话
+//                Toast.makeText(this, "电话", Toast.LENGTH_SHORT).show();
+                break;
+            case "com.android.dialer":  //电话
+//                Toast.makeText(this, "电话", Toast.LENGTH_SHORT).show();
+                break;
+            case "com.android.contacts":  //电话
+//                Toast.makeText(this, "电话", Toast.LENGTH_SHORT).show();
+                break;
+            case "me.android.browser":  //WEB浏览器
+//                Toast.makeText(this, "WEB浏览器", Toast.LENGTH_SHORT).show();
+                break;
+            case "com.UCMobile":  //UC浏览器
+//                Toast.makeText(this, "UC浏览器", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        //按测试例业务处理
+        //处理方法对应uiautomator的jar包测试例，一一对应，一个测试例（比如微信文本）对应一个处理方法
+        //处理方法可单独用类及其方法实现，这里只是调用业务处理类的入口方法（可统一名称，可使用抽象类），在相应类中实现业务的全部处理功能
+        //建议采用此方法开发，这样可以便于从uiautomator测试例移植代码
+        if ((ConfigTest.caseName != null) && (ConfigTest.isCaseRunning == true)) {
+            switch (ConfigTest.caseName) {
+                case "WeiXinText":  //微信文本
+                    if (ConfigTest.weiXinTextCase == null) {
+                        ConfigTest.weiXinTextCase = new WeiXinTextCase();
+                    }
+                    ConfigTest.weiXinTextCase.execute(this, event);
+                    break;
+            }
         }
     }
 

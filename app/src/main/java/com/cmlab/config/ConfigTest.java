@@ -22,6 +22,16 @@ public class ConfigTest {
     public static boolean isCaseRunning = false;
 
     /**
+     * 测试任务开始时间戳，单位ms
+     */
+    public static long caseStartTime;
+
+    /**
+     * 测试任务结束时间戳，单位ms
+     */
+    public static long caseEndTime;
+
+    /**
      * 微信文本测试例执行实例
      */
     public static WeiXinTextCase weiXinTextCase = null;

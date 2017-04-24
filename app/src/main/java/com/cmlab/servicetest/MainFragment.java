@@ -1,7 +1,10 @@
 package com.cmlab.servicetest;
 
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -14,10 +17,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cmlab.config.ConfigTest;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainFragment extends Fragment {
 	public static final String TAG = "MainFragment";
@@ -194,6 +201,15 @@ public class MainFragment extends Fragment {
 					intent = new Intent(getActivity(), MapActivity.class);
 					startActivity(intent);
 					break;
+				case 10:
+					ConfigTest.caseName = "WeiXinText";
+					ConfigTest.isCaseRunning = true;
+					ConfigTest.caseStartTime = System.currentTimeMillis();
+					int duration = 10; //测试任务运行时间，单位s，实际使用时应是平台下发该参数
+					ConfigTest.caseEndTime = ConfigTest.caseStartTime + duration * 1000;
+					opanApp(ConfigTest.caseName);
+					Toast.makeText(getActivity(), "启动微信文本测试", Toast.LENGTH_SHORT).show();
+					break;
 				default:
 					Toast.makeText(getActivity(), R.string.main_switch_default, Toast.LENGTH_SHORT).show();
 				}
@@ -237,6 +253,43 @@ public class MainFragment extends Fragment {
 		//stop ListenerService
 		if (ListenerService.getServiceObj() != null) {
 			getActivity().stopService(new Intent(getActivity(), ListenerService.class));
+		}
+	}
+
+	/**
+	 * 根据指定任务名打开相应的APP，以触发AccessibilityService
+	 *
+	 * @param caseName 测试任务名
+	 *
+	 */
+	private void opanApp(String caseName) {
+		//应用过滤条件，过滤系统中所有APP中activity的intent-filter中action是“android.intent.action.MAIN”以及
+		//category是“android.intent.category.LAUNCHER”的activity
+		//获取满足以上条件的activity，保存在List<ResolveInfo>集合中
+		//注：这样的activity就是APP的启动入口activity
+		Intent mainIntent = new Intent(Intent.ACTION_MAIN);
+		mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		PackageManager packageManager = getActivity().getApplication().getPackageManager();
+		List<ResolveInfo> allAPPs = packageManager.queryIntentActivities(mainIntent, 0);
+		//按包名排序
+		Collections.sort(allAPPs, new ResolveInfo.DisplayNameComparator(packageManager));
+		//遍历集合中的所有activity，根据输入参数测试任务名（对应要用的APP），找到匹配的APP包名，启动指定的APP
+		String packageName = "";
+		switch (caseName) {
+			case "WeiXinText":
+				packageName = "com.tencent.mm";
+				break;
+		}
+		for (ResolveInfo ri : allAPPs) {
+			String pkg = ri.activityInfo.packageName;
+			String cls = ri.activityInfo.name;
+			if (pkg.contains(packageName)) {
+				ComponentName componentName = new ComponentName(pkg, cls);
+				Intent intent = new Intent();
+				intent.setComponent(componentName);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				getActivity().startActivity(intent);
+			}
 		}
 	}
 

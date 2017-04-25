@@ -2,16 +2,21 @@ package com.cmlab.servicetest;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
 import com.cmlab.config.ConfigTest;
+import com.cmlab.util.AccessibilityUtil;
 
 /**
  * Created by hunt on 2017/4/17.
  */
 
 public class UiControlAccessibilityService extends AccessibilityService {
+
+    private boolean isWeiXinItemClicked = false;  //微信界面中最下部的“微信”栏目是否被点击，true：被点击；false：未被点击
 
     @Override
     protected void onServiceConnected() {
@@ -21,9 +26,9 @@ public class UiControlAccessibilityService extends AccessibilityService {
         asInfo.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;
         asInfo.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
         asInfo.notificationTimeout = 100;
-        asInfo.packageNames = new String[] {"com.ting.mp3.android","air.tv.douyu.android","com.tencent.mm",
-                "com.android.phone", "com.android.incallui", "com.android.dialer", "com.android.contacts",
-                "me.android.browser", "com.UCMobile"};
+        asInfo.packageNames = new String[] {ConfigTest.baiduMusicPackageName, ConfigTest.douyuPackageName, ConfigTest.weiXinPackageName,
+                ConfigTest.phonePackageName1, ConfigTest.phonePackageName2, ConfigTest.phonePackageName3, ConfigTest.phonePackageName4,
+                ConfigTest.webBrowserPackageName, ConfigTest.ucWebBrowserPackageName};
         setServiceInfo(asInfo);
     }
 
@@ -160,13 +165,41 @@ public class UiControlAccessibilityService extends AccessibilityService {
         //处理方法对应uiautomator的jar包测试例，一一对应，一个测试例（比如微信文本）对应一个处理方法
         //处理方法可单独用类及其方法实现，这里只是调用业务处理类的入口方法（可统一名称，可使用抽象类），在相应类中实现业务的全部处理功能
         //建议采用此方法开发，这样可以便于从uiautomator测试例移植代码
-        if ((ConfigTest.caseName != null) && (ConfigTest.isCaseRunning == true)) {
+        if ((ConfigTest.caseName != null) && ((ConfigTest.isCaseRunning == true) || (ConfigTest.isAppForeground == true))) {
             switch (ConfigTest.caseName) {
                 case "WeiXinText":  //微信文本
-                    if (ConfigTest.weiXinTextCase == null) {
-                        ConfigTest.weiXinTextCase = new WeiXinTextCase();
+                    //判断是否在测试任务执行过程中，若是，则处理事件，否则就是已经完成测试任务但未退出微信，此时不能处理事件
+                    if (ConfigTest.isCaseRunning == true) {
+                        if (ConfigTest.weiXinTextCase == null) {
+                            ConfigTest.weiXinTextCase = new WeiXinTextCase();
+                        }
+                        ConfigTest.weiXinTextCase.execute(this, event);
+                        //判断是否到了测试任务指定结束时间，若是，则停止执行测试任务，准备退出微信并返回ServiceTest
+                        if (System.currentTimeMillis() >= ConfigTest.caseEndTime) {
+                            ConfigTest.isCaseRunning = false;
+                        }
+                    } else {
+                        if (isWeiXinItemClicked == false) {
+                            AccessibilityNodeInfo node = AccessibilityUtil.findNodeByTextAndId(this, "微信", "com.tencent.mm:id/bgu");
+                            if (node == null) {
+                                //未找到“微信”菜单就点击回退键
+                                performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                            } else {
+                                //找到了“微信”菜单就点击一下“微信”菜单
+                                node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                                isWeiXinItemClicked = true;
+                            }
+                        } else {
+                            //退出微信APP
+                            performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                            ConfigTest.isAppForeground = false;
+                            isWeiXinItemClicked = false;
+                            //弹回ServiceTest
+                            Intent intent = new Intent(this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  //在Activity之外调用startActivity需要设定FLAG_ACTIVITY_NEW_TASK标志
+                            startActivity(intent);
+                        }
                     }
-                    ConfigTest.weiXinTextCase.execute(this, event);
                     break;
             }
         }

@@ -85,6 +85,31 @@ public class ConfigTest {
     public static long caseEndTime;
 
     /**
+     * 上次执行的动作，如click、longclick、scroll等
+     */
+    public static String lastAction;
+
+    /**
+     * 点击action
+     */
+    public static final String ACTION_CLICK = "click";
+
+    /**
+     * 长按action
+     */
+    public static final String ACTION_LONGCLICK = "longclick";
+
+    /**
+     * 滚动action
+     */
+    public static final String ACTION_SCROLL = "scroll";
+
+    /**
+     * 按回退键action
+     */
+    public static final String ACTION_BACK = "back";
+
+    /**
      * 微信文本测试例执行实例
      */
     public static WeiXinTextCase weiXinTextCase = null;

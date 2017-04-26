@@ -12,7 +12,11 @@ public class WeiXinTextCase extends UiautomatorControlCase {
     public boolean execute(Context context, AccessibilityEvent event) {
         boolean result = true;
 
-
+        try {
+            Thread.sleep(200);  //处理完事件后，等待一定时间，让界面完成响应，再进行后续处理
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }

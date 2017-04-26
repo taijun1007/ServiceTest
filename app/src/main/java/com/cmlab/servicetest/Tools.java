@@ -1,5 +1,14 @@
 package com.cmlab.servicetest;
 
+import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.text.format.Time;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONTokener;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -10,17 +19,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONTokener;
-
-import android.os.Build;
-import android.os.Handler;
-import android.telephony.TelephonyManager;
-import android.text.format.Time;
-import android.util.Log;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Tools {
 	private Process mProcess;
@@ -330,7 +333,14 @@ public class Tools {
 			//e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * 时间戳转换为日期，格式：年.月.日-星期几-时:分:秒（.毫秒）
+	 * @param time Time类型，时间，API22开始废弃
+	 * @param isMills boolean类型，true：输出毫秒；false：不输出毫秒
+	 *
+	 * @return String类型，日期
+	 */
 	public static String timeStamp2DateTime(Time time, boolean isMills) {
 		int year = time.year;
 		int month = time.month + 1;
@@ -370,6 +380,56 @@ public class Tools {
 			dateTime = dateTime + "." +  millis;
 		}
 		return dateTime;
+	}
+
+	/**
+	 * 时间戳转换为日期，格式：年.月.日-星期几-时:分:秒（.毫秒）
+	 * @param gregorianCalendar GregorianCalendar类型，时间，start from API22
+	 * @param isMills boolean类型，true：输出毫秒；false：不输出毫秒
+	 *
+	 * @return String类型，日期
+	 */
+	public static String timeStamp2DateTime(GregorianCalendar gregorianCalendar, boolean isMills) {
+		int year = gregorianCalendar.get(GregorianCalendar.YEAR);
+		int month = gregorianCalendar.get(GregorianCalendar.MONTH) + 1;
+		int day = gregorianCalendar.get(GregorianCalendar.DAY_OF_MONTH);
+		int dayofweek = gregorianCalendar.get(GregorianCalendar.DAY_OF_WEEK);
+		int hour = gregorianCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+		int min = gregorianCalendar.get(GregorianCalendar.MINUTE);
+		int sec = gregorianCalendar.get(GregorianCalendar.SECOND);
+		String[] week = {"", "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+		String dateTime = year + "." + month + "." + day + "-" +week[dayofweek] + "-"
+				+ hour + ":" + min + ":" + sec;
+		if (isMills) {
+			long timeStamp = gregorianCalendar.getTimeInMillis();
+			int mills = (int) (timeStamp % 1000);
+			dateTime = dateTime + "." + mills;
+		}
+		return dateTime;
+	}
+
+	/**
+	 * 时间戳转换为日期，格式：yyyy-MM-dd HH:mm:ss
+	 * @param timeStamp 时间戳
+	 *
+	 * @return String类型，日期
+	 */
+	public static String timeStamp2DateTime(long timeStamp) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateTime = format.format(timeStamp);
+		return dateTime;
+	}
+
+	/**
+	 * 日期转换为时间戳
+	 * @param dateTime 日期，String类型，格式：“yyyy-MM-dd HH:mm:ss”
+	 *
+	 * @return long型，时间戳
+	 */
+	public static long dateTime2TimeStamp(String dateTime) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = format.parse(dateTime);
+		return date.getTime();
 	}
 	
 	public static String CalcCellID(int netWorkType, int cid) {

@@ -15,6 +15,36 @@ public class AccessibilityUtil {
 
 //----------------------------------寻找控件--------------------------------------------------------
     /**
+     * 根据控件的resource-id和text属性找到指定的控件。
+     *
+     * @param context UiControlAccessibilityService类型的context
+     * @param resourceid 控件的resource-id属性
+     * @param text       控件的text属性
+     *
+     * @return AccessibilityNodeInfo 找到的控件，若为null，则未找到指定控件
+     */
+    public static AccessibilityNodeInfo findNodeByIdAndText(UiControlAccessibilityService context, String resourceid, String text) {
+        AccessibilityNodeInfo rootNode = context.getRootInActiveWindow();
+        if (rootNode == null) {
+            return null;
+        }
+        List<AccessibilityNodeInfo> nodes = rootNode.findAccessibilityNodeInfosByViewId(resourceid);
+        if (nodes == null) {
+            return null;
+        }
+        AccessibilityNodeInfo node;
+        for(int i = 0; i < nodes.size(); i++) {
+            node = nodes.get(i);
+            if (node.getText() != null) {
+                if (node.getText().equals(text) && node.isEnabled()) {
+                    return node;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * 根据控件的text和resource-id属性找到指定的控件。
      *
      * @param context UiControlAccessibilityService类型的context
@@ -289,6 +319,25 @@ public class AccessibilityUtil {
     }
 
 //----------------------------------点击------------------------------------------------------------
+    /**
+     * 点击。根据控件的resource-id和text属性找到指定的控件执行点击操作。
+     *
+     * @param context UiControlAccessibilityService类型的context
+     * @param resourceid 控件的resource-id属性
+     * @param text       控件的text属性
+     *
+     * @return true：执行成功；false：未找到控件，执行失败
+     */
+    public static boolean findAndPerformClickByIdAndText(UiControlAccessibilityService context, String resourceid, String text) {
+        AccessibilityNodeInfo node = findNodeByIdAndText(context, resourceid, text);
+        if (node != null) {
+            node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * 点击。根据控件的text和resource-id属性找到指定的控件执行点击操作。
      *

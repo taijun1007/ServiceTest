@@ -9,6 +9,16 @@ import com.cmlab.servicetest.WeiXinTextCase;
 
 public class ConfigTest {
 
+    /**
+     * 版本标志，true：debug版本（会输出log文件）；false：发布版（不会输出log文件）
+     */
+    public static final boolean DEBUG = true;
+
+    /**
+     * debug版本输出log文件
+     */
+    public static final String logFile = "/sdcard/ServiceTestLog.txt";
+
     //各被监控APP的包名
     /**
      * 微信包名

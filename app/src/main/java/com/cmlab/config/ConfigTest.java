@@ -9,6 +9,7 @@ import com.cmlab.servicetest.WeiXinTextCase;
 
 public class ConfigTest {
 
+    //版本及调试相关配置--------------------------------------------------------------
     /**
      * 版本标志，true：debug版本（会输出log文件）；false：发布版（不会输出log文件）
      */
@@ -19,6 +20,7 @@ public class ConfigTest {
      */
     public static final String logFile = "/sdcard/ServiceTestLog.txt";
 
+    //测试相关配置----------------------------------------------------------------------
     //各被监控APP的包名
     /**
      * 微信包名
@@ -65,10 +67,26 @@ public class ConfigTest {
      */
     public static final String ucWebBrowserPackageName = "com.UCMobile";
 
+    //测试任务执行控制参数
     /**
      * 测试例名称
      */
     public static String caseName = null;
+
+    /**
+     * setup.json参数文件路径
+     */
+    public static final String setupJsonFile = "/sdcard/testcase/setup.json";
+
+    /**
+     * setup.json文件中对应业务日志保存路径的key
+     */
+    public static final String JSON_KEY_LOGPATH = "logpath";
+
+    /**
+     * setup.json文件中对应业务执行参数文件的key
+     */
+    public static final String JSON_KEY_PARAFILE = "testcaseparafile";
 
     /**
      * 是否正在执行测试任务
@@ -85,6 +103,27 @@ public class ConfigTest {
     public static boolean isAppForeground = false;
 
     /**
+     * 是否已读取setup.json文件
+     * true：已读取setup.json文件
+     * false：未读取setup.json文件
+     */
+    public static boolean isSetupRead = false;
+
+    /**
+     * 是否已读取参数parameter.json文件
+     * true：已读取parameter.json文件
+     * false：未读取parameter.json文件
+     */
+    public static boolean isParameterRead = false;
+
+    /**
+     * 是否已设置了utf7输入法
+     * true：已设置为utf7输入法
+     * false：未设置为utf7输入法
+     */
+    public static boolean isInputSetted = false;
+
+    /**
      * 测试任务开始时间戳，单位ms
      */
     public static long caseStartTime;
@@ -99,6 +138,7 @@ public class ConfigTest {
      */
     public static String lastAction;
 
+    //各种操作识别名称
     /**
      * 点击action
      */
@@ -119,6 +159,28 @@ public class ConfigTest {
      */
     public static final String ACTION_BACK = "back";
 
+    //微信文本业务参数
+    /**
+     * 业务参数文件中对应微信文本业务的发送对象的key
+     */
+    public static final String JSON_KEY_WEIXIN_TEXT_DESTID = "WeiXin_Text_DestID";
+
+    /**
+     * 业务参数文件中对应微信文本业务的发送重复次数的key
+     */
+    public static final String JSON_KEY_WEIXIN_TEXT_RPTTIMES = "WeiXin_Text_RptTimes";
+
+    /**
+     * 业务参数文件中对应微信文本业务的发送内容的key
+     */
+    public static final String JSON_KEY_WEIXIN_TEXT_CONTENT = "WeiXin_Text_Content";
+
+    /**
+     * 业务参数文件中对应微信文本业务的发送时间间隔的key
+     */
+    public static final String JSON_KEY_WEIXIN_TEXT_RPTINTERVAL = "WeiXin_Text_RptInterval";
+
+    //各种业务执行实体
     /**
      * 微信文本测试例执行实例
      */

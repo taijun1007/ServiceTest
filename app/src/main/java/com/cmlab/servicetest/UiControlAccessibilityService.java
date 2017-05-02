@@ -11,9 +11,6 @@ import android.widget.Toast;
 import com.cmlab.config.ConfigTest;
 import com.cmlab.util.AccessibilityUtil;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 /**
  * Created by hunt on 2017/4/17.
  */
@@ -22,9 +19,6 @@ public class UiControlAccessibilityService extends AccessibilityService {
     private static final String TAG = "UCAS";
 
     private boolean isWeiXinItemClicked = false;  //微信界面中最下部的“微信”栏目是否被点击，true：被点击；false：未被点击
-    private GregorianCalendar gc;
-    private String dateTime;
-    private ArrayList<String> strings;
     private String appName;
 
     @Override
@@ -122,11 +116,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                         eventTypeStr = "default-no-message";
                 }
                 Log.i(TAG, eventTypeStr);
-                gc = new GregorianCalendar();
-                dateTime = Tools.timeStamp2DateTime(gc, true);
-                strings = new ArrayList<String>();
-                strings.add(gc.getTimeInMillis() + " " + dateTime + " " + eventTypeStr);
-                Tools.appendTXTFile(strings, ConfigTest.logFile);
+                Tools.writeLogFile(eventTypeStr);
             }
             //验证各种操作和变化会引起的事件类型
             switch (eventType) {
@@ -258,11 +248,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                         appName = "未知APP";
                 }
                 Log.i(TAG, "当前事件来源：" + appName);
-                gc = new GregorianCalendar();
-                dateTime = Tools.timeStamp2DateTime(gc, true);
-                strings = new ArrayList<String>();
-                strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "当前事件来源：" + appName);
-                Tools.appendTXTFile(strings, ConfigTest.logFile);
+                Tools.writeLogFile("当前事件来源：" + appName);
             }
             switch (appPackageName) {
                 case "com.ting.mp3.android": //百度音乐
@@ -306,42 +292,26 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                 ConfigTest.weiXinTextCase = new WeiXinTextCase();
                                 if (ConfigTest.DEBUG) {
                                     Log.i(TAG, "new WeiXinTextCase()");
-                                    gc = new GregorianCalendar();
-                                    dateTime = Tools.timeStamp2DateTime(gc, true);
-                                    strings = new ArrayList<String>();
-                                    strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "new WeiXinTextCase()");
-                                    Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                    Tools.writeLogFile("new WeiXinTextCase()");
                                 }
                             }
                             ConfigTest.weiXinTextCase.execute(this, event);
                             if (ConfigTest.DEBUG) {
                                 Log.i(TAG, "调用weiXinTextCase.execute方法处理事件");
-                                gc = new GregorianCalendar();
-                                dateTime = Tools.timeStamp2DateTime(gc, true);
-                                strings = new ArrayList<String>();
-                                strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "调用weiXinTextCase.execute方法处理事件");
-                                Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                Tools.writeLogFile("调用weiXinTextCase.execute方法处理事件");
                             }
                             //判断是否到了测试任务指定结束时间，若是，则停止执行测试任务，准备退出微信并返回ServiceTest
                             if (System.currentTimeMillis() >= ConfigTest.caseEndTime) {
                                 ConfigTest.isCaseRunning = false;
                                 if (ConfigTest.DEBUG) {
                                     Log.i(TAG, "到指定任务结束时间，结束测试任务");
-                                    gc = new GregorianCalendar();
-                                    dateTime = Tools.timeStamp2DateTime(gc, true);
-                                    strings = new ArrayList<String>();
-                                    strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "到指定任务结束时间，结束测试任务");
-                                    Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                    Tools.writeLogFile("到指定任务结束时间，结束测试任务");
                                 }
                                 try {
                                     Thread.sleep(1000);  //任务结束前的最后处理操作可能会引起界面Activity更新切换，时间较长，按回退键前等待一定时间
                                     if (ConfigTest.DEBUG) {
                                         Log.i(TAG, "点击回退键前等待1秒");
-                                        gc = new GregorianCalendar();
-                                        dateTime = Tools.timeStamp2DateTime(gc, true);
-                                        strings = new ArrayList<String>();
-                                        strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "点击回退键前等待1秒");
-                                        Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                        Tools.writeLogFile("点击回退键前等待1秒");
                                     }
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -349,21 +319,13 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                 performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
                                 if (ConfigTest.DEBUG) {
                                     Log.i(TAG, "第一次点击回退键");
-                                    gc = new GregorianCalendar();
-                                    dateTime = Tools.timeStamp2DateTime(gc, true);
-                                    strings = new ArrayList<String>();
-                                    strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "第一次点击回退键");
-                                    Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                    Tools.writeLogFile("第一次点击回退键");
                                 }
                                 try {
                                     Thread.sleep(1000);  //同时，按回退键也可能会引起界面Activity更新切换，按回退键后也要等待一定时间
                                     if (ConfigTest.DEBUG) {
                                         Log.i(TAG, "点击回退键后等待1秒");
-                                        gc = new GregorianCalendar();
-                                        dateTime = Tools.timeStamp2DateTime(gc, true);
-                                        strings = new ArrayList<String>();
-                                        strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "点击回退键后等待1秒");
-                                        Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                        Tools.writeLogFile("点击回退键后等待1秒");
                                     }
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -375,11 +337,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                     Thread.sleep(100);  //操作前后的延时似乎不会影响响应事件的多少，动作过后事件已经产生，处于事件队列中等待处理???之前的测试任务操作和回退操作等可能会引起窗口切换，耗时较长，需等待切换完成再找控件，否则可能会因在窗口切换过程中找不到控件而执行多余的回退操作，这样会把ServiceTest也退出
                                     if (ConfigTest.DEBUG) {
                                         Log.i(TAG, "休眠0.1秒");
-                                        gc = new GregorianCalendar();
-                                        dateTime = Tools.timeStamp2DateTime(gc, true);
-                                        strings = new ArrayList<String>();
-                                        strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "休眠0.1秒");
-                                        Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                        Tools.writeLogFile("休眠0.1秒");
                                     }
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -391,11 +349,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                     isWeiXinItemClicked = false;
                                     if (ConfigTest.DEBUG) {
                                         Log.i(TAG, "找到ServiceTest控件，ServiceTest已到前台");
-                                        gc = new GregorianCalendar();
-                                        dateTime = Tools.timeStamp2DateTime(gc, true);
-                                        strings = new ArrayList<String>();
-                                        strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "找到ServiceTest控件，ServiceTest已到前台");
-                                        Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                        Tools.writeLogFile("找到ServiceTest控件，ServiceTest已到前台");
                                     }
                                 } else {
                                     AccessibilityNodeInfo node = AccessibilityUtil.findNodeByIdAndText(this, "com.tencent.mm:id/bgu", "微信");
@@ -405,11 +359,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                             Thread.sleep(1000);  //任务结束前的最后处理操作可能会引起界面Activity更新切换，时间较长，按回退键前等待一定时间
                                             if (ConfigTest.DEBUG) {
                                                 Log.i(TAG, "点击回退键前等待1秒");
-                                                gc = new GregorianCalendar();
-                                                dateTime = Tools.timeStamp2DateTime(gc, true);
-                                                strings = new ArrayList<String>();
-                                                strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "点击回退键前等待1秒");
-                                                Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                                Tools.writeLogFile("点击回退键前等待1秒");
                                             }
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
@@ -417,21 +367,13 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                         performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
                                         if (ConfigTest.DEBUG) {
                                             Log.i(TAG, "未找到微信菜单，点击回退键");
-                                            gc = new GregorianCalendar();
-                                            dateTime = Tools.timeStamp2DateTime(gc, true);
-                                            strings = new ArrayList<String>();
-                                            strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "未找到微信菜单，点击回退键");
-                                            Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                            Tools.writeLogFile("未找到微信菜单，点击回退键");
                                         }
                                         try {
                                             Thread.sleep(1000);  //同时，按回退键也可能会引起界面Activity更新切换，按回退键后也要等待一定时间
                                             if (ConfigTest.DEBUG) {
                                                 Log.i(TAG, "点击回退键后等待1秒");
-                                                gc = new GregorianCalendar();
-                                                dateTime = Tools.timeStamp2DateTime(gc, true);
-                                                strings = new ArrayList<String>();
-                                                strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "点击回退键后等待1秒");
-                                                Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                                Tools.writeLogFile("点击回退键后等待1秒");
                                             }
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
@@ -446,11 +388,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                         isWeiXinItemClicked = true;
                                         if (ConfigTest.DEBUG) {
                                             Log.i(TAG, "找到微信菜单，点击");
-                                            gc = new GregorianCalendar();
-                                            dateTime = Tools.timeStamp2DateTime(gc, true);
-                                            strings = new ArrayList<String>();
-                                            strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "找到微信菜单，点击");
-                                            Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                            Tools.writeLogFile("找到微信菜单，点击");
                                         }
                                     }
                                 }
@@ -465,11 +403,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                         Thread.sleep(500);  //等待点击后可能会引起的窗口切换完成，这里也可以不用等待
                                         if (ConfigTest.DEBUG) {
                                             Log.i(TAG, "最后一次点击回退键前等待0.5秒");
-                                            gc = new GregorianCalendar();
-                                            dateTime = Tools.timeStamp2DateTime(gc, true);
-                                            strings = new ArrayList<String>();
-                                            strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "最后一次点击回退键前等待0.5秒");
-                                            Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                            Tools.writeLogFile("最后一次点击回退键前等待0.5秒");
                                         }
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -480,21 +414,13 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                     isWeiXinItemClicked = false;
                                     if (ConfigTest.DEBUG) {
                                         Log.i(TAG, "最后一次点击回退键，退出微信");
-                                        gc = new GregorianCalendar();
-                                        dateTime = Tools.timeStamp2DateTime(gc, true);
-                                        strings = new ArrayList<String>();
-                                        strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "最后一次点击回退键，退出微信");
-                                        Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                        Tools.writeLogFile("最后一次点击回退键，退出微信");
                                     }
                                     try {
                                         Thread.sleep(500);  //同时，按回退键也可能会引起界面Activity更新切换，按回退键后也要等待一定时间
                                         if (ConfigTest.DEBUG) {
                                             Log.i(TAG, "最后一次点击回退键后等待0.5秒");
-                                            gc = new GregorianCalendar();
-                                            dateTime = Tools.timeStamp2DateTime(gc, true);
-                                            strings = new ArrayList<String>();
-                                            strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "最后一次点击回退键后等待0.5秒");
-                                            Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                            Tools.writeLogFile("最后一次点击回退键后等待0.5秒");
                                         }
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -505,11 +431,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                     startActivity(intent);
                                     if (ConfigTest.DEBUG) {
                                         Log.i(TAG, "startActivity, 弹出ServiceTest");
-                                        gc = new GregorianCalendar();
-                                        dateTime = Tools.timeStamp2DateTime(gc, true);
-                                        strings = new ArrayList<String>();
-                                        strings.add(gc.getTimeInMillis() + " " + dateTime + " " + "startActivity, 弹出ServiceTest");
-                                        Tools.appendTXTFile(strings, ConfigTest.logFile);
+                                        Tools.writeLogFile("startActivity, 弹出ServiceTest");
                                     }
                                 }
                             }

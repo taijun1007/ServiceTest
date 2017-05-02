@@ -5,6 +5,8 @@ import android.telephony.TelephonyManager;
 import android.text.format.Time;
 import android.util.Log;
 
+import com.cmlab.config.ConfigTest;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONTokener;
@@ -511,6 +513,19 @@ public class Tools {
 			}
 		}
 		return cellID;
+	}
+
+	/**
+	 * 以追加的方式记录log到指定的日志文件中，日志文件由全局常量ConfigTest.logFile指定
+	 *
+	 * @param msg String类型，log信息
+	 */
+	public static void writeLogFile(String msg) {
+		GregorianCalendar gc = new GregorianCalendar();
+		String dateTime = Tools.timeStamp2DateTime(gc, true);
+		ArrayList<String> strings = new ArrayList<String>();
+		strings.add(gc.getTimeInMillis() + " " + dateTime + " " + msg);
+		appendTXTFile(strings, ConfigTest.logFile);
 	}
 	
 }

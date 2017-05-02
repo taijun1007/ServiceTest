@@ -205,6 +205,9 @@ public class MainFragment extends Fragment {
 					ConfigTest.caseName = "WeiXinText";
 					ConfigTest.isCaseRunning = true;
 					ConfigTest.isAppForeground = true;
+					ConfigTest.isSetupRead = false;
+					ConfigTest.isParameterRead = false;
+					ConfigTest.isInputSetted = false;
 					ConfigTest.caseStartTime = System.currentTimeMillis();
 					int duration = 10; //测试任务运行时间，单位s，实际使用时应是平台下发该参数
 					ConfigTest.caseEndTime = ConfigTest.caseStartTime + duration * 1000;

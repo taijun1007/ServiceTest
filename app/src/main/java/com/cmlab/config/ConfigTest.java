@@ -20,6 +20,11 @@ public class ConfigTest {
      */
     public static final String logFile = "/sdcard/ServiceTestLog.txt";
 
+    /**
+     * 定位位置记录文件
+     */
+    public static final String locationFile = "/sdcard/ServiceTestLocation.txt";
+
     //测试相关配置----------------------------------------------------------------------
     //各被监控APP的包名
     /**

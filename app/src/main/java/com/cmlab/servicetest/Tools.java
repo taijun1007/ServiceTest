@@ -527,5 +527,20 @@ public class Tools {
 		strings.add(gc.getTimeInMillis() + " " + dateTime + " " + msg);
 		appendTXTFile(strings, ConfigTest.logFile);
 	}
+
+	/**
+	 * 以追加的方式记录定位位置信息到指定的文件中，定位位置信息文件由全局变量ConfigTest.locationFile指定
+	 *
+	 * @param location String类型，定位位置信息
+	 */
+	public static void writeLocationFile(String location) {
+		GregorianCalendar gc = new GregorianCalendar();
+		String dateTime = Tools.timeStamp2DateTime(gc, true);
+		ArrayList<String> strings = new ArrayList<String>();
+		strings.add("--------------------------------------------------");
+		strings.add(gc.getTimeInMillis() + " " + dateTime);
+		strings.add(location);
+		appendTXTFile(strings, ConfigTest.locationFile);
+	}
 	
 }

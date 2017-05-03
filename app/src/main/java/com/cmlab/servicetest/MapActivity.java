@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -12,6 +11,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationData;
 
 /**
  * Created by hunt on 2017/4/16.
@@ -52,7 +52,22 @@ public class MapActivity extends Activity {
                     break;
                 case BDLocation.TypeNetWorkLocation: //网络定位结果
                     sb.append("地址: " + bdLocation.getAddrStr() + "\n"); //获取地址
-                    sb.append("运营商: " + bdLocation.getOperators() + "\n"); //获取运营商信息
+                    String operator = null;
+                    switch (bdLocation.getOperators()) {
+                        case BDLocation.OPERATORS_TYPE_MOBILE: //中国移动
+                            operator = "中国移动";
+                            break;
+                        case BDLocation.OPERATORS_TYPE_UNICOM: //中国联通
+                            operator = "中国联通";
+                            break;
+                        case BDLocation.OPERATORS_TYPE_TELECOMU: //中国电信
+                            operator = "中国电信";
+                            break;
+                        case BDLocation.OPERATORS_TYPE_UNKONW: //未知运营商
+                            operator = "未知运营商";
+                            break;
+                    }
+                    sb.append("运营商: " + operator + "\n"); //获取运营商信息
                     sb.append("描述: 网络定位成功\n");
                     break;
                 case BDLocation.TypeOffLineLocation:  //离线定位结果
@@ -69,7 +84,16 @@ public class MapActivity extends Activity {
                     break;
             }
             sb.append("位置语义化信息: " + bdLocation.getLocationDescribe() + "\n");  //获取位置语义化信息
-            Toast.makeText(mapActivity, sb.toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mapActivity, sb.toString(), Toast.LENGTH_SHORT).show();
+            Tools.writeLocationFile(sb.toString());
+            MyLocationData locationData = new MyLocationData.Builder()
+                    .accuracy(bdLocation.getRadius())
+                    .direction(bdLocation.getDirection())
+                    .latitude(bdLocation.getLatitude())
+                    .longitude(bdLocation.getLongitude())
+                    .build();
+            mBaiduMap.setMyLocationData(locationData);
+
         }
 
         @Override
@@ -124,6 +148,8 @@ public class MapActivity extends Activity {
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(myListener);
         initLocation();
+        mLocationClient.start();
+        mBaiduMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -142,6 +168,8 @@ public class MapActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
+        mLocationClient.stop();
+        mBaiduMap.setMyLocationEnabled(false);
     }
 
     /**

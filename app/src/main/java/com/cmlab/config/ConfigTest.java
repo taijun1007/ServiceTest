@@ -143,6 +143,11 @@ public class ConfigTest {
      */
     public static String lastAction;
 
+    /**
+     * 状态机当前状态编码
+     */
+    public static int currentStatusCode;
+
     //各种操作识别名称
     /**
      * 点击action

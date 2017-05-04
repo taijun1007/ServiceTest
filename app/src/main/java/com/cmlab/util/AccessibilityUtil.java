@@ -15,6 +15,50 @@ public class AccessibilityUtil {
 
 //----------------------------------寻找控件--------------------------------------------------------
     /**
+     * 根据控件的text属性找到指定的控件。注意：这里text是包含而不是绝对匹配，所以只有根据text属性能唯一匹配的时候才用此方法
+     *
+     * @param context UiControlAccessibilityService类型的context
+     * @param text       控件的text属性
+     *
+     * @return AccessibilityNodeInfo 找到的控件，若为null，则未找到指定控件
+     */
+    public static AccessibilityNodeInfo findNodeByText(UiControlAccessibilityService context, String text) {
+        AccessibilityNodeInfo rootNode = context.getRootInActiveWindow();
+        if (rootNode == null) {
+            return null;
+        }
+        List<AccessibilityNodeInfo> nodes = rootNode.findAccessibilityNodeInfosByText(text);
+        if (nodes == null) {
+            return null;
+        }
+        AccessibilityNodeInfo node;
+        node = nodes.get(0);
+        return node;
+    }
+
+    /**
+     * 根据控件的resource-id属性找到指定的控件。注意：只有根据resource-id属性能唯一匹配的时候才用此方法
+     *
+     * @param context UiControlAccessibilityService类型的context
+     * @param resourceid 控件的resource-id属性
+     *
+     * @return AccessibilityNodeInfo 找到的控件，若为null，则未找到指定控件
+     */
+    public static AccessibilityNodeInfo findNodeById(UiControlAccessibilityService context, String resourceid) {
+        AccessibilityNodeInfo rootNode = context.getRootInActiveWindow();
+        if (rootNode == null) {
+            return null;
+        }
+        List<AccessibilityNodeInfo> nodes = rootNode.findAccessibilityNodeInfosByViewId(resourceid);
+        if (nodes == null) {
+            return null;
+        }
+        AccessibilityNodeInfo node;
+        node = nodes.get(0);
+        return node;
+    }
+
+    /**
      * 根据控件的resource-id和text属性找到指定的控件。
      *
      * @param context UiControlAccessibilityService类型的context
@@ -319,6 +363,42 @@ public class AccessibilityUtil {
     }
 
 //----------------------------------点击------------------------------------------------------------
+    /**
+     * 点击。根据控件的text属性找到指定的控件执行点击操作。注意：这里text是包含而不是绝对匹配，所以只有根据text属性能唯一匹配的时候才用此方法
+     *
+     * @param context UiControlAccessibilityService类型的context
+     * @param text       控件的text属性
+     *
+     * @return true：执行成功；false：未找到控件，执行失败
+     */
+    public static boolean findAndPerformClickByText(UiControlAccessibilityService context, String text) {
+        AccessibilityNodeInfo node = findNodeByText(context, text);
+        if (node != null) {
+            node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 点击。根据控件的resource-id属性找到指定的控件执行点击操作。注意：只有根据resource-id属性能唯一匹配的时候才用此方法
+     *
+     * @param context UiControlAccessibilityService类型的context
+     * @param resourceid 控件的resource-id属性
+     *
+     * @return true：执行成功；false：未找到控件，执行失败
+     */
+    public static boolean findAndPerformClickById(UiControlAccessibilityService context, String resourceid) {
+        AccessibilityNodeInfo node = findNodeById(context, resourceid);
+        if (node != null) {
+            node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * 点击。根据控件的resource-id和text属性找到指定的控件执行点击操作。
      *

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+import com.cmlab.config.ConfigStatusCode;
 import com.cmlab.config.ConfigTest;
+import com.cmlab.util.AccessibilityUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +42,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
         ConfigTest.isSetupRead = false;
         ConfigTest.isParameterRead = false;
         ConfigTest.isInputSetted = false;
+        ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_INIT;
         logPath = null;
         parameterFile = null;
         weiXin_Text_DestID = null;
@@ -48,7 +52,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
     }
 
     @Override
-    public boolean execute(Context context, AccessibilityEvent event) {
+    public boolean execute(UiControlAccessibilityService context, AccessibilityEvent event) {
         String appPackageName = (String) event.getPackageName();
         //如果当前的事件来源于微信，则处理，否则不进行处理
         if (appPackageName.equals("com.tencent.mm")) {
@@ -150,7 +154,56 @@ public class WeiXinTextCase extends UiautomatorControlCase {
             //execute方法结尾记得要关闭数据库文件
             SQLiteDatabase db = SQLiteDatabase.openDatabase(logPath + ".db", null, SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.CREATE_IF_NECESSARY);
             db.execSQL("CREATE TABLE IF NOT EXISTS WeiXinTextLog (mili VARCHAR, format VARCHAR, classname VARCHAR, sequence VARCHAR, level VARCHAR, result VARCHAR, speed VARCHAR, Tx VARCHAR, Rx VARCHAR)");
+            //下面开始执行微信文本发送操作并记录相应log，进行状态判断和迁移
+            AccessibilityNodeInfo node = null;
+            switch (ConfigTest.currentStatusCode) {
+                case ConfigStatusCode.WEIXINTEXT_INIT:  //当前是初始状态
+                    try {
+                        Thread.sleep(300);  //等待微信完全打开，完成界面切换
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    node = AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/bgu", "微信");
+                    if (node != null) {
+                        node.getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                        ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_TALKLIST;  //下一个状态：进入微信对话列表界面
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("点击左下方\"微信\"。当前状态：初始；下一状态：进入微信对话列表界面");
+                        }
+                    }
+                    break;
+                case ConfigStatusCode.WEIXINTEXT_TALKLIST:  //当前状态是进入微信对话列表界面
+                    try {
+                        Thread.sleep(300); //等完成切换到微信对话列表状态
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    boolean result = AccessibilityUtil.findAndPerformClickByText(context, weiXin_Text_DestID);
+                    if (result) {
+                        //找到目标人物的已有聊天，点击进入聊天界面
+                        ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_CHAT;  //下一个状态：进入微信聊天界面
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("找到目标人物已有聊天，点击进入聊天。当前状态：微信对话列表界面；下一状态：进入微信聊天界面");
+                        }
+                    } else {
+                        //在对话列表界面未找到目标人物的聊天记录，点击“通讯录”进入通讯录列表寻找目标人物
+                        node = AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/bgu", "通讯录");
+                        if (node != null) {
+                            node.getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                            ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_CONTACT;  //下一个状态：进入通讯录列表界面
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("未找到目标人物已有聊天，进入通讯录。当前状态：微信对话列表界面；下一状态：进入通讯录列表界面");
+                            }
+                        }
+                    }
+                    break;
+                case ConfigStatusCode.WEIXINTEXT_CONTACT: //当前状态是进入通讯录列表界面
 
+                    break;
+                case ConfigStatusCode.WEIXINTEXT_CHAT:  //当前状态是进入聊天界面
+
+                    break;
+            }
             //关闭数据库
             db.close();
             try {
@@ -171,6 +224,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
      */
     private boolean setInput(Context context) {
         boolean result = true;
+        //以下使用shell命令方式修改settings.db数据库，需要root权限
         Process settingInput = null;
         try {
             settingInput = Runtime.getRuntime().exec("su");

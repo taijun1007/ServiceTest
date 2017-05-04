@@ -382,7 +382,7 @@ public class AccessibilityUtil {
     }
 
     /**
-     * 点击。根据控件的resource-id属性找到指定的控件执行点击操作。注意：只有根据resource-id属性能唯一匹配的时候才用此方法
+     * 点击。根据控件的resource-id属性找到指定的控件执行点击操作。 注意：只有根据resource-id属性能唯一匹配的时候才用此方法
      *
      * @param context UiControlAccessibilityService类型的context
      * @param resourceid 控件的resource-id属性

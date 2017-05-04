@@ -27,7 +27,7 @@ public class ConfigStatusCode {
     public static final int WEIXINTEXT_CHAT = 0x02;
 
     /**
-     *  通讯录列表
+     * 通讯录列表
      */
     public static final int WEIXINTEXT_CONTACT = 0x03;
 

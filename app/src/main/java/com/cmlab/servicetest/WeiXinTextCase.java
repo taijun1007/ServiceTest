@@ -197,7 +197,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                         }
                     }
                     break;
-                case ConfigStatusCode.WEIXINTEXT_CONTACT:  //当前状态是进入通讯录列表界面
+                case ConfigStatusCode.WEIXINTEXT_CONTACT: //当前状态是进入通讯录列表界面
 
                     break;
                 case ConfigStatusCode.WEIXINTEXT_CHAT:  //当前状态是进入聊天界面

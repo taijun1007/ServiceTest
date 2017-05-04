@@ -1,6 +1,5 @@
 package com.cmlab.servicetest;
 
-import android.content.Context;
 import android.view.accessibility.AccessibilityEvent;
 
 /**
@@ -15,11 +14,11 @@ public abstract class UiautomatorControlCase {
     /**
      * 抽象方法，执行业务处理逻辑，根据输入的事件，执行相应的操作
      *
-     * @param context Context，一般为UiControlAccessibilityService类型
+     * @param context UiControlAccessibilityService类型
      * @param event 事件，根据事件内容执行业务逻辑
      *
      * @return boolean型，true表示执行成功，false表示执行失败
      */
-    public abstract boolean execute(Context context, AccessibilityEvent event);
+    public abstract boolean execute(UiControlAccessibilityService context, AccessibilityEvent event);
 
 }

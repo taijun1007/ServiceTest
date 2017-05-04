@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cmlab.config.ConfigStatusCode;
 import com.cmlab.config.ConfigTest;
 
 import java.io.File;
@@ -208,6 +209,7 @@ public class MainFragment extends Fragment {
 					ConfigTest.isSetupRead = false;
 					ConfigTest.isParameterRead = false;
 					ConfigTest.isInputSetted = false;
+					ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_INIT;
 					ConfigTest.caseStartTime = System.currentTimeMillis();
 					int duration = 10; //测试任务运行时间，单位s，实际使用时应是平台下发该参数
 					ConfigTest.caseEndTime = ConfigTest.caseStartTime + duration * 1000;

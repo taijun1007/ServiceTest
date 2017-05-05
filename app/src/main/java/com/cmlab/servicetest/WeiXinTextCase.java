@@ -195,6 +195,11 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                         if (ConfigTest.DEBUG) {
                             Tools.writeLogFile("找到目标人物已有聊天，点击进入聊天。当前状态：微信对话列表界面；下一状态：进入微信聊天界面");
                         }
+                        try {
+                            Thread.sleep(200);  //点击后必须等待一段时间等界面切换完成、文本输入框出现后才能继续完成文本输入工作
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         //在对话列表界面未找到目标人物的聊天记录，点击“通讯录”进入通讯录列表寻找目标人物
                         node = AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/bgu", "通讯录");
@@ -249,6 +254,11 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                         ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_CHAT;
                         if (ConfigTest.DEBUG) {
                             Tools.writeLogFile("在详细资料界面点击“发消息”按钮，进入聊天界面。当前状态：详细资料；下一状态：聊天。");
+                        }
+                        try {
+                            Thread.sleep(200);  //点击后必须等待一段时间等界面切换完成、文本输入框出现后才能继续完成文本输入工作
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
                     break;

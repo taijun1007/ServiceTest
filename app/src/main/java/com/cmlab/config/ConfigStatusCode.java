@@ -31,4 +31,9 @@ public class ConfigStatusCode {
      */
     public static final int WEIXINTEXT_CONTACT = 0x03;
 
+    /**
+     * 目标人物详细资料界面
+     */
+    public static final int WEIXINTEXT_INFO = 0x04;
+
 }

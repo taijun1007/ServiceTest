@@ -190,6 +190,27 @@ public class ConfigTest {
      */
     public static final String JSON_KEY_WEIXIN_TEXT_RPTINTERVAL = "WeiXin_Text_RptInterval";
 
+    //操作节点的级别
+    /**
+     * 匹配节点自身
+     */
+    public static final int NODE_SELF = 0;
+
+    /**
+     * 匹配节点的父节点
+     */
+    public static final int NODE_FATHER = 1;
+
+    /**
+     * 匹配节点的爷爷节点
+     */
+    public static final int NODE_GRANDFATHER = 2;
+
+    /**
+     * 匹配节点的子节点
+     */
+    public static final int NODE_SON = -1;
+
     //各种业务执行实体
     /**
      * 微信文本测试例执行实例

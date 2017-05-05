@@ -211,7 +211,7 @@ public class MainFragment extends Fragment {
 					ConfigTest.isInputSetted = false;
 					ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_INIT;
 					ConfigTest.caseStartTime = System.currentTimeMillis();
-					int duration = 10; //测试任务运行时间，单位s，实际使用时应是平台下发该参数
+					int duration = 30; //测试任务运行时间，单位s，实际使用时应是平台下发该参数
 					ConfigTest.caseEndTime = ConfigTest.caseStartTime + duration * 1000;
 					opanApp(ConfigTest.caseName);
 					Toast.makeText(getActivity(), "启动微信文本测试", Toast.LENGTH_SHORT).show();

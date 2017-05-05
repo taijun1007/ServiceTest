@@ -1,7 +1,11 @@
 package com.cmlab.servicetest;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -35,7 +39,8 @@ public class WeiXinTextCase extends UiautomatorControlCase {
     private String weiXin_Text_DestID;
     private int weiXin_Text_RptTimes;
     private String weiXin_Text_Content;
-    private long weiXin_Text_RptInterval;
+    private int weiXin_Text_RptInterval;
+    private int weiXin_Text_Count;
 
     public WeiXinTextCase() {
         //初始化
@@ -49,6 +54,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
         weiXin_Text_RptTimes = 0;
         weiXin_Text_Content = null;
         weiXin_Text_RptInterval = 0;
+        weiXin_Text_Count = 0;
     }
 
     @Override
@@ -99,7 +105,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
             //直到下一次新的任务开始时再一次读取
             if (!ConfigTest.isParameterRead) {
                 //如果不知道参数文件在哪则不能读取，且不能执行后续测试任务，返回
-                if (parameterFile == null) {
+                if (parameterFile != null) {
                     File paraFile = new File(parameterFile);
                     if (paraFile.exists()) {
                         JSONArray paraArray = Tools.readJSONFile(parameterFile);
@@ -110,6 +116,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                                 weiXin_Text_RptTimes = Integer.parseInt(paraJsonObject.getString(ConfigTest.JSON_KEY_WEIXIN_TEXT_RPTTIMES));
                                 weiXin_Text_Content = paraJsonObject.getString(ConfigTest.JSON_KEY_WEIXIN_TEXT_CONTENT);
                                 weiXin_Text_RptInterval = 1000 * Integer.parseInt(paraJsonObject.getString(ConfigTest.JSON_KEY_WEIXIN_TEXT_RPTINTERVAL));
+                                weiXin_Text_Count = 0;
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 if (ConfigTest.DEBUG) {
@@ -147,9 +154,12 @@ public class WeiXinTextCase extends UiautomatorControlCase {
             }
             //第一次进入执行方法时，需要将输入法改为utf7输入法，避免影响ui操作和识别，设置一次即可，后续测试中不需要再设置
             //直到下一轮测试开始再进行设置
-            if (!ConfigTest.isInputSetted) {
-                ConfigTest.isInputSetted = setInput(context);
-            }
+            //注意：经验证，三星S6（5.0以上系统）无论使用node.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments)方法输入文本
+            //还是使用粘贴板粘贴方式输入文本时，不要修改输入法为utf7，使用原有系统输入法也不会弹出软键盘，
+            //因此可以不用修改输入法啦！！！！！！！
+//            if (!ConfigTest.isInputSetted) {
+//                ConfigTest.isInputSetted = setInput(context);
+//            }
             //打开log数据库文件，如果没有就建立，如果没有WeiXinTextLog数据库表就建立
             //execute方法结尾记得要关闭数据库文件
             SQLiteDatabase db = SQLiteDatabase.openDatabase(logPath + ".db", null, SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.CREATE_IF_NECESSARY);
@@ -178,7 +188,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    boolean result = AccessibilityUtil.findAndPerformClickByText(context, weiXin_Text_DestID);
+                    boolean result = AccessibilityUtil.findAndPerformClickByText(context, weiXin_Text_DestID, ConfigTest.NODE_SELF);
                     if (result) {
                         //找到目标人物的已有聊天，点击进入聊天界面
                         ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_CHAT;  //下一个状态：进入微信聊天界面
@@ -198,19 +208,120 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                     }
                     break;
                 case ConfigStatusCode.WEIXINTEXT_CONTACT: //当前状态是进入通讯录列表界面
-
+                    try {
+                        Thread.sleep(300);  //等待完成切换到通讯录列表界面
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    node = AccessibilityUtil.findNodeByIdAndClass(context, "com.tencent.mm:id/fp", "android.widget.ListView"); //找到ListView
+                    if (node != null) {
+                        //如果找到ListView，则可以继续操作，否则不进行任何操作也不改变状态
+                        while (AccessibilityUtil.findNodeByText(context, "新的朋友") == null) {
+                            node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD); //滚动到最顶端
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("滚动到最顶端");
+                            }
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        while (!AccessibilityUtil.findAndPerformClickByText(context, weiXin_Text_DestID, ConfigTest.NODE_FATHER)) {
+                            node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD); //未找到目标人物就往下滚动
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("未找到目标人物，往下滚动");
+                            }
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_INFO; //下一个状态：进入目标人物详细资料界面
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("找到目标人物，进入详细资料界面。当前状态：通讯录列表；下一状态：详细资料。");
+                        }
+                    }
+                    break;
+                case ConfigStatusCode.WEIXINTEXT_INFO:  //当前状态是进入目标人物详细资料界面
+                    if (AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/a7q", "发消息", ConfigTest.NODE_SELF)) {
+                        ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_CHAT;
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("在详细资料界面点击“发消息”按钮，进入聊天界面。当前状态：详细资料；下一状态：聊天。");
+                        }
+                    }
                     break;
                 case ConfigStatusCode.WEIXINTEXT_CHAT:  //当前状态是进入聊天界面
-
+                    if (weiXin_Text_Count < weiXin_Text_RptTimes) {
+                        node = AccessibilityUtil.findNodeByIdAndContentDesc(context, "com.tencent.mm:id/yo", "切换到键盘");
+                        if (node != null) {
+                            node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                            try {
+                                Thread.sleep(200);  //点击后必须等待一段时间等文本输入框出现后才能继续完成文本输入工作
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("切换到键盘");
+                            }
+                        }
+                        node = AccessibilityUtil.findNodeByIdAndClass(context, "com.tencent.mm:id/yq", "android.widget.EditText");
+                        if (node != null) {
+                            // android>21 = 5.0时可以用ACTION_SET_TEXT
+                            // android>18 3.0.1可以通过复制的手段,先确定焦点，再粘贴ACTION_PASTE
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                                //API level < 21
+                                // 使用剪切板
+                                ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clipData = ClipData.newPlainText("text", weiXin_Text_Content + String.valueOf(weiXin_Text_Count + 1));
+                                clipboardManager.setPrimaryClip(clipData);
+                                //焦点
+                                node.performAction(AccessibilityNodeInfo.ACTION_FOCUS);
+                                if (ConfigTest.DEBUG) {
+                                    Tools.writeLogFile("设置文本输入框焦点");
+                                }
+                                //粘贴
+                                node.performAction(AccessibilityNodeInfo.ACTION_PASTE);
+                                if (ConfigTest.DEBUG) {
+                                    Tools.writeLogFile("在文本输入框中粘贴内容");
+                                }
+                            } else {
+                                //API level >= 21
+                                Bundle arguments = new Bundle();
+                                arguments.putString(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, weiXin_Text_Content + String.valueOf(weiXin_Text_Count + 1));
+                                node.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                                if (ConfigTest.DEBUG) {
+                                    Tools.writeLogFile("在文本输入框中输入内容");
+                                }
+                            }
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("输入文本："  + weiXin_Text_Content + String.valueOf(weiXin_Text_Count + 1));
+                            }
+                            AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/yw", "发送", ConfigTest.NODE_SELF);
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("点击“发送”按钮");
+                            }
+                            weiXin_Text_Count++;
+                            try {
+                                Thread.sleep(weiXin_Text_RptInterval * 1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
+                        //达到指定发送次数了就要结束任务，准备退出
+                        ConfigTest.caseEndTime = System.currentTimeMillis();  //修改任务预定结束时间为当前实际结束时间
+                    }
                     break;
             }
             //关闭数据库
             db.close();
-            try {
+            /*try {
                 Thread.sleep(200);  //处理完事件后，等待一定时间，让界面完成响应，再进行后续处理
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
             return true;
         } else {
             return false;
@@ -230,7 +341,7 @@ public class WeiXinTextCase extends UiautomatorControlCase {
             settingInput = Runtime.getRuntime().exec("su");
             OutputStream settingInputoutputStream = settingInput.getOutputStream();
             DataOutputStream settingInputdataOutputStream = new DataOutputStream(settingInputoutputStream);
-            settingInputdataOutputStream.writeBytes("settings put secure default_input_method jp.jun_nama.test.utf7ime/.Utf7ImeService");
+            settingInputdataOutputStream.writeBytes("settings put secure default_input_method jp.jun_nama.test.utf7ime/.Utf7ImeService\n");
             settingInputdataOutputStream.flush();
             settingInputdataOutputStream.close();
             settingInputoutputStream.close();
@@ -243,10 +354,6 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                 Tools.writeLogFile("输入法修改失败");
             }
             result = false;
-        } finally {
-            if (settingInput != null) {
-                settingInput.destroy();
-            }
         }
         return result;
     }

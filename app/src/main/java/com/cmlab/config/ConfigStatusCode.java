@@ -36,4 +36,6 @@ public class ConfigStatusCode {
      */
     public static final int WEIXINTEXT_INFO = 0x04;
 
+    //微信图片状态编码
+
 }

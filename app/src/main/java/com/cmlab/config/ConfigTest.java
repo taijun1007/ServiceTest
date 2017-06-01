@@ -190,6 +190,11 @@ public class ConfigTest {
      */
     public static final String JSON_KEY_WEIXIN_TEXT_RPTINTERVAL = "WeiXin_Text_RptInterval";
 
+    /**
+     * 微信文本等待发送成功、超时或失败的超时时间，单位：秒
+     */
+    public static final int WEIXIN_TEXT_WAIT_TIMEOUT = 10;
+
     //操作节点的级别
     /**
      * 匹配节点自身

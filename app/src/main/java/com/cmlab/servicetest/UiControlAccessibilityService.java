@@ -27,8 +27,9 @@ public class UiControlAccessibilityService extends AccessibilityService {
         //初始化配置
         super.onServiceConnected();
         AccessibilityServiceInfo asInfo = new AccessibilityServiceInfo();
-        asInfo.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;
+        asInfo.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;  //全部事件类型
         asInfo.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
+        asInfo.flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;  //获取控件的resourceid，默认配置是不报的，需要设置
         asInfo.notificationTimeout = 100;
         asInfo.packageNames = new String[]{ConfigTest.baiduMusicPackageName, ConfigTest.douyuPackageName, ConfigTest.weiXinPackageName,
                 ConfigTest.phonePackageName1, ConfigTest.phonePackageName2, ConfigTest.phonePackageName3, ConfigTest.phonePackageName4,
@@ -115,8 +116,9 @@ public class UiControlAccessibilityService extends AccessibilityService {
                     default:
                         eventTypeStr = "default-no-message";
                 }
-                Log.i(TAG, eventTypeStr);
-                Tools.writeLogFile(eventTypeStr);
+                Log.i(TAG, "当前事件：" + eventTypeStr);
+                Tools.writeLogFile("=================================================");
+                Tools.writeLogFile("当前事件：" + eventTypeStr);
             }
             //验证各种操作和变化会引起的事件类型
             switch (eventType) {
@@ -279,6 +281,33 @@ public class UiControlAccessibilityService extends AccessibilityService {
 //                Toast.makeText(this, "UC浏览器", Toast.LENGTH_SHORT).show();
                     break;
             }
+            //测试代码-20170518-0959，START，对每一个event都查看其来源界面的全部控件
+//            if (ConfigTest.DEBUG) {
+//                Tools.writeLogFile("EVENT事件信息------------------------");
+//                Tools.writeLogFile("event Class Name: " + event.getClassName());
+//                Tools.writeLogFile("event Text: " + event.getText());
+//                Tools.writeLogFile("event Package Name: " + event.getPackageName());
+//                Tools.writeLogFile("event Content Desc: " + event.getContentDescription());
+//                Tools.writeLogFile("event WindowID: " + event.getWindowId());
+//                Tools.writeLogFile("event source Class Name: " + event.getSource().getClassName());
+//                Tools.writeLogFile("event source Text: " + event.getSource().getText());
+//                Tools.writeLogFile("event source ID: " + event.getSource().getViewIdResourceName());
+//                Tools.writeLogFile("event source Package Name: " + event.getSource().getPackageName());
+//                Tools.writeLogFile("event source Content Desc: " + event.getSource().getContentDescription());
+//                Tools.writeLogFile("event source WindowID: " + event.getSource().getWindowId());
+//                AccessibilityNodeInfo rootNodeInfo = getRootInActiveWindow();
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                if (rootNodeInfo == null) {
+//                    Tools.writeLogFile("Root Node is NULL!");
+//                } else {
+//                    recycle(rootNodeInfo);
+//                }
+//            }
+            //测试代码-20170518-0959，END
             //按测试例业务处理
             //处理方法对应uiautomator的jar包测试例，一一对应，一个测试例（比如微信文本）对应一个处理方法
             //处理方法可单独用类及其方法实现，这里只是调用业务处理类的入口方法（可统一名称，可使用抽象类），在相应类中实现业务的全部处理功能
@@ -316,16 +345,24 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-                                if (ConfigTest.DEBUG) {
-                                    Log.i(TAG, "第一次点击回退键");
-                                    Tools.writeLogFile("第一次点击回退键");
+                                AccessibilityNodeInfo weixinNode = AccessibilityUtil.findNodeByIdAndText(this, "com.tencent.mm:id/bgu", "微信");
+                                if (weixinNode != null) {
+                                    weixinNode.getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                                    if (ConfigTest.DEBUG) {
+                                        Tools.writeLogFile("找到了下方的微信标签，不能点击回退键，改为点击微信标签");
+                                    }
+                                } else {
+                                    performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                                    if (ConfigTest.DEBUG) {
+                                        Log.i(TAG, "第一次点击回退键");
+                                        Tools.writeLogFile("第一次点击回退键");
+                                    }
                                 }
                                 try {
                                     Thread.sleep(1000);  //同时，按回退键也可能会引起界面Activity更新切换，按回退键后也要等待一定时间
                                     if (ConfigTest.DEBUG) {
-                                        Log.i(TAG, "点击回退键后等待1秒");
-                                        Tools.writeLogFile("点击回退键后等待1秒");
+                                        Log.i(TAG, "点击后等待1秒");
+                                        Tools.writeLogFile("点击后等待1秒");
                                     }
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -446,4 +483,23 @@ public class UiControlAccessibilityService extends AccessibilityService {
     public void onInterrupt() {
 
     }
+
+    private void recycle(AccessibilityNodeInfo info) {
+        if (info.getChildCount() == 0) {
+            Tools.writeLogFile("Child Widget------------------------------------");
+            Tools.writeLogFile("Class Name: " + info.getClassName());
+            Tools.writeLogFile("Text: " + info.getText());
+            Tools.writeLogFile("ID: " + info.getViewIdResourceName());
+            Tools.writeLogFile("Package Name: " + info.getPackageName());
+            Tools.writeLogFile("Content Desc: " + info.getContentDescription());
+            Tools.writeLogFile("WindowID: " + info.getWindowId());
+        } else {
+            for (int i = 0; i < info.getChildCount(); i++) {
+                if(info.getChild(i)!=null){
+                    recycle(info.getChild(i));
+                }
+            }
+        }
+    }
+
 }

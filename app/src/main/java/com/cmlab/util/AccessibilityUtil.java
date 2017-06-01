@@ -87,7 +87,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if (node.getText() != null) {
-                if (node.getText().equals(text) && node.isEnabled()) {
+                if (node.getText().toString().equals(text) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -151,7 +151,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if (node.getClassName() != null) {
-                if (node.getClassName().equals(className) && node.isEnabled()) {
+                if (node.getClassName().toString().equals(className) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -183,7 +183,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if (node.getPackageName() != null) {
-                if (node.getPackageName().equals(packageName) && node.isEnabled()) {
+                if (node.getPackageName().toString().equals(packageName) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -215,7 +215,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if (node.getContentDescription() != null) {
-                if (node.getContentDescription().equals(contentDesc) && node.isEnabled()) {
+                if (node.getContentDescription().toString().equals(contentDesc) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -247,7 +247,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if (node.getClassName() != null) {
-                if (node.getClassName().equals(className) && node.isEnabled()) {
+                if (node.getClassName().toString().equals(className) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -279,7 +279,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if (node.getPackageName() != null) {
-                if (node.getPackageName().equals(packageName) && node.isEnabled()) {
+                if (node.getPackageName().toString().equals(packageName) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -311,7 +311,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if (node.getContentDescription() != null) {
-                if (node.getContentDescription().equals(contentDesc) && node.isEnabled()) {
+                if (node.getContentDescription().toString().equals(contentDesc) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -344,7 +344,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if ((node.getText() != null) && (node.getClassName() != null)) {
-                if (node.getText().equals(text) && node.getClassName().equals(className) && node.isEnabled()) {
+                if (node.getText().toString().equals(text) && node.getClassName().toString().equals(className) && node.isEnabled()) {
                     return node;
                 }
             }
@@ -379,7 +379,7 @@ public class AccessibilityUtil {
         for(int i = 0; i < nodes.size(); i++) {
             node = nodes.get(i);
             if ((node.getText() != null) && (node.getClassName() != null) && (node.getPackageName() != null)) {
-                if (node.getText().equals(text) && node.getClassName().equals(className) && node.getPackageName().equals(packageName) && node.isEnabled()) {
+                if (node.getText().toString().equals(text) && node.getClassName().toString().equals(className) && node.getPackageName().toString().equals(packageName) && node.isEnabled()) {
                     return node;
                 }
             }

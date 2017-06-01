@@ -1,5 +1,6 @@
 package com.cmlab.config;
 
+import com.cmlab.servicetest.WeiXinImageCase;
 import com.cmlab.servicetest.WeiXinTextCase;
 
 /**
@@ -195,6 +196,37 @@ public class ConfigTest {
      */
     public static final int WEIXIN_TEXT_WAIT_TIMEOUT = 10;
 
+    //微信图片业务参数
+    /**
+     * 业务参数文件中对应微信图片业务的发送对象的key
+     */
+    public static final String JSON_KEY_WEIXIN_IMAGE_DESTID = "WeiXin_Image_DestID";
+
+    /**
+     * 业务参数文件中对应微信图片业务的发送次数的key
+     */
+    public static final String JSON_KEY_WEIXIN_IMAGE_RPTTIMES = "WeiXin_Image_RptTimes";
+
+    /**
+     * 业务参数文件中对应微信图片业务的图片大小/尺寸的key
+     */
+    public static final String JSON_KEY_WEIXIN_IMAGE_SIZE = "WeiXin_Image_Size";
+
+    /**
+     * 业务参数文件中对应微信图片业务的图片数量、编号或范围的key
+     */
+    public static final String JSON_KEY_WEIXIN_IMAGE_NUM = "WeiXin_Image_Num";
+
+    /**
+     * 业务参数文件中对应微信图片业务的发送间隔的key
+     */
+    public static final String JSON_KEY_WEIXIN_IMAGE_RPTINTERVAL = "WeiXin_Image_RptInterval";
+
+    /**
+     * 业务参数文件中对应微信图片业务的是否发送原图的key
+     */
+    public static final String JSON_KEY_WEIXIN_IMAGE_ORIGIN = "WeiXin_Image_Origin";
+
     //操作节点的级别
     /**
      * 匹配节点自身
@@ -221,5 +253,10 @@ public class ConfigTest {
      * 微信文本测试例执行实例
      */
     public static WeiXinTextCase weiXinTextCase = null;
+
+    /**
+     * 微信图片测试例执行实例
+     */
+    public static WeiXinImageCase weiXinImageCase = null;
 
 }

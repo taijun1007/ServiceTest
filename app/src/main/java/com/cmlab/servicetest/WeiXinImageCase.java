@@ -1,5 +1,6 @@
 package com.cmlab.servicetest;
 
+import android.accessibilityservice.AccessibilityService;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -7,6 +8,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
 import com.cmlab.config.ConfigTest;
+import com.cmlab.util.AccessibilityUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -125,8 +127,125 @@ public class WeiXinImageCase extends UiautomatorControlCase {
         db.execSQL("CREATE TABLE IF NOT EXISTS WeiXinImageLog (mili VARCHAR, format VARCHAR, classname VARCHAR, sequence VARCHAR, level VARCHAR, result VARCHAR, speed VARCHAR, Tx VARCHAR, Rx VARCHAR)");
         //开始执行测试任务
         AccessibilityNodeInfo node = null;
+        int count;
+        boolean isGoOn = false;
+        for(count = 0; count < 10; count++) {
+            try {
+                Thread.sleep(1000);  //休眠1秒，等微信完全打开
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/bgu", "微信", ConfigTest.NODE_FATHER)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("找到左下角的微信标签，点击");
+                }
+                isGoOn = true;
+                break;
+            }
+        }
+        if (!isGoOn) {
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("10秒内未找到左下角的微信标签，未成功进入微信，终止测试！");
+            }
+            return false;
+        }
+        try {
+            Thread.sleep(500); //等完成切换到微信对话列表状态
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/a_7", weiXin_Image_DestID, ConfigTest.NODE_FATHER)) {
+            //找到目标人物的已有聊天，点击进入聊天界面
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到目标人物已有聊天，点击进入聊天");
+            }
+            try {
+                Thread.sleep(500);  //点击后必须等待一段时间等界面切换完成
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            //在对话列表界面未找到目标人物的聊天记录，点击“通讯录”进入通讯录列表寻找目标人物
+            AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/bgu", "通讯录", ConfigTest.NODE_FATHER);
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("未找到目标人物已有聊天，进入通讯录");
+            }
+            try {
+                Thread.sleep(300);  //等待完成切换到通讯录列表界面
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            node = AccessibilityUtil.findNodeByIdAndClass(context, "com.tencent.mm:id/fp", "android.widget.ListView"); //找到ListView
+            while (AccessibilityUtil.findNodeByText(context, "新的朋友") == null) {
+                node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD); //滚动到最顶端
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("滚动到最顶端");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/gj", weiXin_Image_DestID, ConfigTest.NODE_FATHER)) {
+                node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD); //未找到目标人物就往下滚动
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到目标人物，往下滚动");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到目标人物，进入详细资料界面");
+            }
+            try {
+                Thread.sleep(300);  //等待完成切换到详细资料界面
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/a7q", "发消息", ConfigTest.NODE_SELF);
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("在详细资料界面点击“发消息”按钮，进入聊天界面");
+            }
+            try {
+                Thread.sleep(500);  //点击后必须等待一段时间等界面切换完成
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         db.close();
+//        Toast.makeText(context, context.getRootInActiveWindow().getPackageName(), Toast.LENGTH_SHORT).show();
+        for(count = 0; count < 10; count++) { //退出微信，最多按10次回退键
+            node = context.getRootInActiveWindow();
+            if (node != null) {
+                if (node.getPackageName().equals("com.tencent.mm")) {
+                    context.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("仍是微信窗口，按回退键。count==" + count);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("已退出微信窗口，结束。count==" + count);
+                    }
+                    break;
+                }
+            } else {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("获取不到窗口root节点，node==null。count==" + count);
+                    Tools.writeLogFile("微信正在退出最后窗口，切换中，可结束操作，完成！");
+                }
+                break;
+            }
+        }
         return true;
     }
 }

@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.cmlab.config.ConfigTest;
 import com.cmlab.util.AccessibilityUtil;
 
+import static com.cmlab.config.ConfigTest.weiXinImageCase;
+
 /**
  * Created by hunt on 2017/4/17.
  */
@@ -473,6 +475,38 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                 }
                             }
                         }
+                        break;
+                    case "WeiXinImage":  //微信图片
+                        //采用第一个触发事件来的时候进入处理，等全部测试任务处理完后再退出，即只进来处理一次就完成全部任务
+                        //只需要判断是否在测试任务进行期间即可，即ConfigTest.isCaseRunning是否为true，如果此方案可行，
+                        //以后 if ((ConfigTest.caseName != null) && ((ConfigTest.isCaseRunning == true) || (ConfigTest.isAppForeground == true)))
+                        //可改为 if (ConfigTest.isCaseRunning == true)
+                        //任务结束时修改 ConfigTest.isCaseRunning 为 false
+                        if (weiXinImageCase == null) {
+                            weiXinImageCase = new WeiXinImageCase();
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("new WeiXinImageCase()");
+                            }
+                        }
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("开始调用WeiXinImageCase.execute方法执行测试任务...");
+                        }
+                        boolean result = ConfigTest.weiXinImageCase.execute(this, event);
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("测试任务执行完毕！");
+                        }
+                        if (result) {
+                            Toast.makeText(this, "测试任务执行成功！", Toast.LENGTH_SHORT).show();
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("测试任务执行成功！");
+                            }
+                        } else {
+                            Toast.makeText(this, "测试任务执行失败！", Toast.LENGTH_SHORT).show();
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("测试任务执行失败！");
+                            }
+                        }
+                        ConfigTest.isCaseRunning = false;
                         break;
                 }
             }

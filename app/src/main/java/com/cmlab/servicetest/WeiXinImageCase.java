@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 /**
  * 微信图片，按照指定的业务参数发送微信图片，并在指定的sqlite数据库文件中记录log
@@ -212,6 +213,282 @@ public class WeiXinImageCase extends UiautomatorControlCase {
             }
             try {
                 Thread.sleep(500);  //点击后必须等待一段时间等界面切换完成
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //发送之前的填充，3张图片
+        for(int l = 0; l < 3; l++) {
+            while (!AccessibilityUtil.findAndPerformClickByIdAndContentDesc(context, "com.tencent.mm:id/yv", "更多功能按钮，已折叠", ConfigTest.NODE_SELF)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到-更多功能按钮，已折叠");
+                }
+                if (!AccessibilityUtil.findAndPerformClickByIdAndContentDesc(context, "com.tencent.mm:id/yv", "更多功能按钮，已展开", ConfigTest.NODE_SELF)) {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("未找到-更多功能按钮，已展开");
+                    }
+                } else {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("找到-更多功能按钮，已展开-点击");
+                    }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到-更多功能按钮，已折叠-点击");
+            }
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/hb", "图片", ConfigTest.NODE_FATHER)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到图片选项");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("点击图片");
+            }
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/c1_", "图片和视频", ConfigTest.NODE_FATHER)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到图片和视频选项");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("点击图片和视频");
+            }
+            while (AccessibilityUtil.findScrollableNode(context, "android.widget.ListView") == null) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            node = AccessibilityUtil.findScrollableNode(context, "android.widget.ListView");//找可滚动的ListView，滚动寻找指定size的图片文件夹
+            if (node != null) {
+                //找到了可滚动的ListView，滚动寻找指定size的图片文件夹
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("找到可滚动的ListView");
+                }
+                while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/c1g", weiXin_Image_Size, ConfigTest.NODE_FATHER)) {
+                    node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("未找到指定size的图片文件夹，向下滚动一次");
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("找到指定size的图片文件夹，点击进入");
+                }
+                //寻找要填充的图片并点击
+                while (!AccessibilityUtil.findAndPerformClickByIdAndContentDescContain(context, "com.tencent.mm:id/xe", "图片 " + String.valueOf(l + 1) + ",", ConfigTest.NODE_FATHER)) {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("未找到填充图片 " + String.valueOf(l + 1));
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("找到填充图片 " + String.valueOf(l + 1) + "，点击");
+                }
+                //是否要发送原图
+                if (weiXin_Image_Origin == 1) {
+                    //需要发送原图
+                    while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/az6", "原图", ConfigTest.NODE_SELF)) {
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("未找到原图文字");
+                        }
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("需要发送原图，点击原图文字");
+                    }
+                }
+                while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/ee", "发送", ConfigTest.NODE_SELF)) {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("未找到发送按钮");
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("点击发送按钮，发送填充图片 " + String.valueOf(l + 1));
+                }
+            } else {
+//                Toast.makeText(context, "没找到ListView", Toast.LENGTH_SHORT).show();
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("没找到ListView");
+                }
+            }
+        }
+        //开始正式发送微信图片
+        if (ConfigTest.DEBUG) {
+            Tools.writeLogFile("--------------开始正式发送微信图片----------------");
+        }
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        db.execSQL("INSERT INTO WeiXinImageLog VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[]{ System.currentTimeMillis(),dateFormat2.format(System.currentTimeMillis()),"com.WenXinImage", "0", "info","WeiXinImage-Test-Started","","","" });
+        for(int j = 0; j < weiXin_Image_RptTimes; j++) {
+            while (!AccessibilityUtil.findAndPerformClickByIdAndContentDesc(context, "com.tencent.mm:id/yv", "更多功能按钮，已折叠", ConfigTest.NODE_SELF)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到-更多功能按钮，已折叠");
+                }
+                if (!AccessibilityUtil.findAndPerformClickByIdAndContentDesc(context, "com.tencent.mm:id/yv", "更多功能按钮，已展开", ConfigTest.NODE_SELF)) {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("未找到-更多功能按钮，已展开");
+                    }
+                } else {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("找到-更多功能按钮，已展开-点击");
+                    }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到-更多功能按钮，已折叠-点击");
+            }
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/hb", "图片", ConfigTest.NODE_FATHER)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到图片选项");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("点击图片");
+            }
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/c1_", "图片和视频", ConfigTest.NODE_FATHER)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到图片和视频选项");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("点击图片和视频");
+            }
+            while (AccessibilityUtil.findScrollableNode(context, "android.widget.ListView") == null) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            node = AccessibilityUtil.findScrollableNode(context, "android.widget.ListView");//找可滚动的ListView，滚动寻找指定size的图片文件夹
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到可滚动的ListView");
+            }
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/c1g", weiXin_Image_Size, ConfigTest.NODE_FATHER)) {
+                node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到指定size的图片文件夹，向下滚动一次");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到指定size的图片文件夹，点击进入");
+            }
+            //寻找要发送的正式图片并点击
+            //注，这里要按照看到第4个再发第一个的策略来发送图片，和jar包策略保持一致，找不到就滚动
+            while (AccessibilityUtil.findNodeByIdAndClass(context, "com.tencent.mm:id/c17", "android.widget.GridView") == null) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到图片列表GridView");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到了图片列表GridView，准备寻找图片发送");
+            }
+            node = AccessibilityUtil.findNodeByIdAndClass(context, "com.tencent.mm:id/c17", "android.widget.GridView");
+            while (AccessibilityUtil.findNodeByIdAndContentDescContain(context, "com.tencent.mm:id/xe", "图片 " + String.valueOf(j + 4) + ",") == null) {
+                node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到定位图片 " + String.valueOf(j + 4) + "，向下滚动一次");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            AccessibilityUtil.findAndPerformClickByIdAndContentDescContain(context, "com.tencent.mm:id/xe", "图片 " + String.valueOf(j + 1) + ",", ConfigTest.NODE_FATHER);
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到定位图片 " + String.valueOf(j + 4) + "，点击待发送图片 " + String.valueOf(j + 1));
+            }
+            //是否要发送原图
+            if (weiXin_Image_Origin == 1) {
+                //需要发送原图
+                while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/az6", "原图", ConfigTest.NODE_SELF)) {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("未找到原图文字");
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("需要发送原图，点击原图文字");
+                }
+            }
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/ee", "发送", ConfigTest.NODE_SELF)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到发送按钮");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("点击发送按钮，发送待发送图片 " + String.valueOf(j + 1));
+            }
+            //延时指定发送时间间隔
+            try {
+                Thread.sleep(weiXin_Image_RptInterval * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -224,7 +224,7 @@ public class MainFragment extends Fragment {
 					duration = 60;  //测试任务运行时间，单位s，实际使用时应是平台下发该参数
 					ConfigTest.caseEndTime = ConfigTest.caseStartTime + duration * 1000;
 					opanApp(ConfigTest.caseName);
-					Toast.makeText(getActivity(), "启动微信图片测试", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getActivity(), "启动微信图片测试", Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					Toast.makeText(getActivity(), R.string.main_switch_default, Toast.LENGTH_SHORT).show();

@@ -492,10 +492,12 @@ public class AccessibilityUtil {
                         //如果需要匹配类名，但类名不匹配，该节点下还有子节点，继续遍历子节点
                         int childCount = node.getChildCount();
                         for (int i = 0; i < childCount; i++) {
-                            AccessibilityNodeInfo returnNode = recycleScrollableNode(node.getChild(i), className);//依次遍历该节点下所有子节点及其子节点
-                            if (returnNode != null) {
-                                //若返回的节点不为null，则说明找到匹配类名的可滚动控件，返回该返回的节点
-                                return returnNode;
+                            if (node.getChild(i) != null) {
+                                AccessibilityNodeInfo returnNode = recycleScrollableNode(node.getChild(i), className);//依次遍历该节点下所有子节点及其子节点
+                                if (returnNode != null) {
+                                    //若返回的节点不为null，则说明找到匹配类名的可滚动控件，返回该返回的节点
+                                    return returnNode;
+                                }
                             }
                         }
                         //如果遍历完该节点下所有的子节点分支都返回null，则说明该节点及以下所有分支都未找到指定的控件，返回null
@@ -512,10 +514,12 @@ public class AccessibilityUtil {
                 //遍历该节点下所有子节点分支
                 int childCount = node.getChildCount();
                 for(int i = 0; i < childCount; i++) {
-                    AccessibilityNodeInfo returnNode = recycleScrollableNode(node.getChild(i), className);//依次遍历该节点下所有子节点及其子节点
-                    if (returnNode != null) {
-                        //若返回的节点不为null，则说明找到匹配类名的可滚动控件，返回该返回的节点
-                        return returnNode;
+                    if (node.getChild(i) != null) {
+                        AccessibilityNodeInfo returnNode = recycleScrollableNode(node.getChild(i), className);//依次遍历该节点下所有子节点及其子节点
+                        if (returnNode != null) {
+                            //若返回的节点不为null，则说明找到匹配类名的可滚动控件，返回该返回的节点
+                            return returnNode;
+                        }
                     }
                 }
                 //如果遍历完该节点下所有的子节点分支都返回null，则说明该节点及以下所有分支都未找到指定的控件，返回null

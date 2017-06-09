@@ -152,7 +152,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
             return false;
         }
         try {
-            Thread.sleep(500); //等完成切换到微信对话列表状态
+            Thread.sleep(1000); //等完成切换到微信对话列表状态
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -162,7 +162,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                 Tools.writeLogFile("找到目标人物已有聊天，点击进入聊天");
             }
             try {
-                Thread.sleep(500);  //点击后必须等待一段时间等界面切换完成
+                Thread.sleep(1000);  //点击后必须等待一段时间等界面切换完成
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -173,7 +173,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                 Tools.writeLogFile("未找到目标人物已有聊天，进入通讯录");
             }
             try {
-                Thread.sleep(300);  //等待完成切换到通讯录列表界面
+                Thread.sleep(1000);  //等待完成切换到通讯录列表界面
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -184,7 +184,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                     Tools.writeLogFile("滚动到最顶端");
                 }
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -195,7 +195,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                     Tools.writeLogFile("未找到目标人物，往下滚动");
                 }
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -204,7 +204,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                 Tools.writeLogFile("找到目标人物，进入详细资料界面");
             }
             try {
-                Thread.sleep(300);  //等待完成切换到详细资料界面
+                Thread.sleep(600);  //等待完成切换到详细资料界面
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -213,7 +213,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                 Tools.writeLogFile("在详细资料界面点击“发消息”按钮，进入聊天界面");
             }
             try {
-                Thread.sleep(500);  //点击后必须等待一段时间等界面切换完成
+                Thread.sleep(1000);  //点击后必须等待一段时间等界面切换完成
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -237,7 +237,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                     }
                 }
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -250,7 +250,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                     Tools.writeLogFile("未找到图片选项");
                 }
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -263,7 +263,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                     Tools.writeLogFile("未找到图片和视频选项");
                 }
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -273,7 +273,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
             }
             while (AccessibilityUtil.findScrollableNode(context, "android.widget.ListView") == null) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -294,7 +294,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                             Tools.writeLogFile("未找到指定size的图片文件夹，向下滚动一次");
                         }
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(300);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -389,7 +389,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         }
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -402,7 +402,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("未找到图片选项");
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -415,7 +415,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("未找到图片和视频选项");
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -425,7 +425,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                 }
                 while (AccessibilityUtil.findScrollableNode(context, "android.widget.ListView") == null) {
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -440,7 +440,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("未找到指定size的图片文件夹，向下滚动一次");
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -455,7 +455,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("未找到图片列表GridView");
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -470,7 +470,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("未找到定位图片 " + String.valueOf(j + 4) + "，向下滚动一次");
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -487,7 +487,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                             Tools.writeLogFile("未找到原图文字");
                         }
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(300);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -504,7 +504,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("未找到发送按钮");
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -518,7 +518,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("未找到聊天列表中的已发送图片");
                     }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -530,7 +530,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                 while ((System.currentTimeMillis() - sendStartTime) <= 10 * 1000) {
                     //10秒内如果ProgressBar消失，且没有出现“重发”图标，则成功
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(400);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -540,6 +540,33 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                     }
                     if (lastPicNode.getParent().getChildCount() == 3) {
                         //如果FrameLayout含有3个子节点，即说明出现了ProgressBar
+                        //test start
+                        /*AccessibilityNodeInfo father = lastPicNode.getParent();
+                        AccessibilityNodeInfo c1 = father.getChild(0);
+                        Tools.writeLogFile("child 0 classname: " + c1.getClassName().toString());
+                        if (c1.getViewIdResourceName() != null) {
+                            Tools.writeLogFile("child 0 id: " + c1.getViewIdResourceName().toString());
+                        }
+                        if (c1.getContentDescription() != null) {
+                            Tools.writeLogFile("child 0 desc; " + c1.getContentDescription().toString());
+                        }
+                        AccessibilityNodeInfo c2 = father.getChild(1);
+                        Tools.writeLogFile("child 1 classname: " + c2.getClassName().toString());
+                        if (c2.getViewIdResourceName() != null) {
+                            Tools.writeLogFile("child 1 id: " + c2.getViewIdResourceName().toString());
+                        }
+                        if (c2.getContentDescription() != null) {
+                            Tools.writeLogFile("child 1 desc; " + c2.getContentDescription().toString());
+                        }
+                        AccessibilityNodeInfo c3 = father.getChild(2);
+                        Tools.writeLogFile("child 2 classname: " + c3.getClassName().toString());
+                        if (c3.getViewIdResourceName() != null) {
+                            Tools.writeLogFile("child 2 id: " + c3.getViewIdResourceName().toString());
+                        }
+                        if (c3.getContentDescription() != null) {
+                            Tools.writeLogFile("child 2 desc; " + c3.getContentDescription().toString());
+                        }*/
+                        //test end
                         resultCode = 1;
                     } else if (lastPicNode.getParent().getParent().getChildCount() == 3) {
                         //如果RelativeLayout含有3个子节点，即说明出现了“重发”图片
@@ -608,7 +635,7 @@ public class WeiXinImageCase extends UiautomatorControlCase {
                         Tools.writeLogFile("仍是微信窗口，按回退键。count==" + count);
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

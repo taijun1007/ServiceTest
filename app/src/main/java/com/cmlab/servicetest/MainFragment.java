@@ -1,7 +1,10 @@
 package com.cmlab.servicetest;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -12,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import com.cmlab.config.ConfigTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -204,27 +210,10 @@ public class MainFragment extends Fragment {
 					startActivity(intent);
 					break;
 				case 10:
-					ConfigTest.caseName = "WeiXinText";
-					ConfigTest.isCaseRunning = true;
-					ConfigTest.isAppForeground = true;
-					ConfigTest.isSetupRead = false;
-					ConfigTest.isParameterRead = false;
-					ConfigTest.isInputSetted = false;
-					ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_INIT;
-					ConfigTest.caseStartTime = System.currentTimeMillis();
-					duration = 30; //测试任务运行时间，单位s，实际使用时应是平台下发该参数
-					ConfigTest.caseEndTime = ConfigTest.caseStartTime + duration * 1000;
-					opanApp(ConfigTest.caseName);
-					Toast.makeText(getActivity(), "启动微信文本测试", Toast.LENGTH_SHORT).show();
+					doTest(getActivity(), 10);
 					break;
 				case 11:
-					ConfigTest.caseName = "WeiXinImage";
-					ConfigTest.isCaseRunning = true;
-					ConfigTest.caseStartTime = System.currentTimeMillis();
-					duration = 60;  //测试任务运行时间，单位s，实际使用时应是平台下发该参数
-					ConfigTest.caseEndTime = ConfigTest.caseStartTime + duration * 1000;
-					opanApp(ConfigTest.caseName);
-//					Toast.makeText(getActivity(), "启动微信图片测试", Toast.LENGTH_SHORT).show();
+					doTest(getActivity(), 11);
 					break;
 				default:
 					Toast.makeText(getActivity(), R.string.main_switch_default, Toast.LENGTH_SHORT).show();
@@ -232,6 +221,152 @@ public class MainFragment extends Fragment {
 			}
 		});
 		return v;
+	}
+
+	//弹出对话框，输入测试时长参数，点击确定开始测试，点击取消不执行测试
+	private void doTest(final Context context, final int testID) {
+		final RelativeLayout inputForm = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.inputtime, null);
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("请输入测试时长")
+				.setView(inputForm)
+				.setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+							boolean isDo;
+							int time;
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								EditText et1 = (EditText) inputForm.findViewById(R.id.et1);
+								if (!et1.getText().toString().trim().equals("")) {
+									//输入不为空
+									if (checkTime(et1.getText().toString().trim())) {
+										//输入合法时长（>=30）
+										isDo = true;
+									} else {
+										//输入时长不合法
+										isDo = false;
+									}
+								} else {
+									//输入为空，按默认时长执行测试
+									isDo = true;
+								}
+								if (isDo) {
+									// 利用反射机制设置mShowing字段值为false，使得AlertDialog点击按钮不消失，设置为true，可以消失
+									try {
+										Field field = dialog
+												.getClass()
+												.getSuperclass()
+												.getDeclaredField(
+														"mShowing");
+										field.setAccessible(true);
+										field.set(dialog, true);
+									} catch (NoSuchFieldException e) {
+										// TODO Auto-generated catch
+										// block
+										e.printStackTrace();
+									} catch (IllegalAccessException e) {
+										// TODO Auto-generated catch
+										// block
+										e.printStackTrace();
+									} catch (IllegalArgumentException e) {
+										// TODO Auto-generated catch
+										// block
+										e.printStackTrace();
+									}
+									if (et1.getText().toString().trim().equals("")) {
+										time = 60;   //默认测试时长，60秒
+									} else {
+										time = Integer.parseInt(et1.getText().toString().trim());
+									}
+									switch (testID) {
+										case 10:
+											ConfigTest.caseName = "WeiXinText";
+											ConfigTest.isCaseRunning = true;
+											ConfigTest.isAppForeground = true;
+											ConfigTest.isSetupRead = false;
+											ConfigTest.isParameterRead = false;
+											ConfigTest.isInputSetted = false;
+											ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_INIT;
+											ConfigTest.caseStartTime = System.currentTimeMillis();
+											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time是测试任务运行时间，单位s，实际使用时应是平台下发该参数
+											opanApp(ConfigTest.caseName);
+//											Toast.makeText(getActivity(), "启动微信文本测试", Toast.LENGTH_SHORT).show();
+											break;
+										case 11:
+											ConfigTest.caseName = "WeiXinImage";
+											ConfigTest.isCaseRunning = true;
+											ConfigTest.caseStartTime = System.currentTimeMillis();
+											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time测试任务运行时间，单位s，实际使用时应是平台下发该参数
+											opanApp(ConfigTest.caseName);
+//					                        Toast.makeText(getActivity(), "启动微信图片测试", Toast.LENGTH_SHORT).show();
+											break;
+									}
+									dialog.cancel();
+								} else {
+									// 利用反射机制设置mShowing字段值为false，使得AlertDialog点击按钮不消失，设置为true，可以消失
+									try {
+										Field field = dialog
+												.getClass()
+												.getSuperclass()
+												.getDeclaredField(
+														"mShowing");
+										field.setAccessible(true);
+										field.set(dialog, false);
+									} catch (NoSuchFieldException e) {
+										// TODO Auto-generated catch
+										// block
+										e.printStackTrace();
+									} catch (IllegalAccessException e) {
+										// TODO Auto-generated catch
+										// block
+										e.printStackTrace();
+									} catch (IllegalArgumentException e) {
+										// TODO Auto-generated catch
+										// block
+										e.printStackTrace();
+									}
+									Toast.makeText(context, "请输入纯数字，且必须大于等于30", Toast.LENGTH_SHORT).show();
+								}
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								// 利用反射机制设置mShowing字段值为false，使得AlertDialog点击按钮不消失，设置为true，可以消失
+								try {
+									Field field = dialog.getClass()
+											.getSuperclass()
+											.getDeclaredField("mShowing");
+									field.setAccessible(true);
+									field.set(dialog, true);
+								} catch (NoSuchFieldException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								dialog.cancel();
+							}
+						}).create().show();
+	}
+
+	//检查输入测试时长参数是否合法
+	private boolean checkTime(String time) {
+		int i;
+		try {
+			i = Integer.parseInt(time);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return false;
+		}
+		if (i < 30) {
+			return false;
+		}
+		return true;
 	}
 	
 	private class GridItemAdapter extends ArrayAdapter<GridItem> {

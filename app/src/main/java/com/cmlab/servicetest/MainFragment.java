@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cmlab.config.ConfigStatusCode;
 import com.cmlab.config.ConfigTest;
 
 import java.io.File;
@@ -281,11 +280,6 @@ public class MainFragment extends Fragment {
 										case 10:
 											ConfigTest.caseName = "WeiXinText";
 											ConfigTest.isCaseRunning = true;
-											ConfigTest.isAppForeground = true;
-											ConfigTest.isSetupRead = false;
-											ConfigTest.isParameterRead = false;
-											ConfigTest.isInputSetted = false;
-											ConfigTest.currentStatusCode = ConfigStatusCode.WEIXINTEXT_INIT;
 											ConfigTest.caseStartTime = System.currentTimeMillis();
 											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time是测试任务运行时间，单位s，实际使用时应是平台下发该参数
 											opanApp(ConfigTest.caseName);

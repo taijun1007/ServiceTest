@@ -2,16 +2,12 @@ package com.cmlab.servicetest;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
-import android.content.Intent;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
 import com.cmlab.config.ConfigTest;
-import com.cmlab.util.AccessibilityUtil;
-
-import static com.cmlab.config.ConfigTest.weiXinImageCase;
 
 /**
  * Created by hunt on 2017/4/17.
@@ -314,16 +310,45 @@ public class UiControlAccessibilityService extends AccessibilityService {
             //处理方法对应uiautomator的jar包测试例，一一对应，一个测试例（比如微信文本）对应一个处理方法
             //处理方法可单独用类及其方法实现，这里只是调用业务处理类的入口方法（可统一名称，可使用抽象类），在相应类中实现业务的全部处理功能
             //建议采用此方法开发，这样可以便于从uiautomator测试例移植代码
-            if ((ConfigTest.caseName != null) && ((ConfigTest.isCaseRunning == true) || (ConfigTest.isAppForeground == true))) {
+//            if ((ConfigTest.caseName != null) && ((ConfigTest.isCaseRunning == true) || (ConfigTest.isAppForeground == true))) {
+            if (ConfigTest.isCaseRunning == true) {
+                boolean result;
                 switch (ConfigTest.caseName) {
                     case "WeiXinText":  //微信文本
+                        //修改微信文本的执行方式，不再使用状态机模式，改为微信图片的模式
+                        if (ConfigTest.weiXinTextCase == null) {
+                            ConfigTest.weiXinTextCase = new WeiXinTextCase();
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("new WeiXinTextCase()");
+                            }
+                        }
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("开始调用WeiXinTextCase.execute方法执行测试任务...");
+                        }
+                        result = ConfigTest.weiXinTextCase.execute(this, event);
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("测试任务执行完毕！");
+                        }
+                        if (result) {
+                            Toast.makeText(this, "测试任务执行成功！", Toast.LENGTH_SHORT).show();
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("测试任务执行成功！");
+                            }
+                        } else {
+                            Toast.makeText(this, "测试任务执行失败！", Toast.LENGTH_SHORT).show();
+                            if (ConfigTest.DEBUG) {
+                                Tools.writeLogFile("测试任务执行失败！");
+                            }
+                        }
+                        ConfigTest.isCaseRunning = false;
+                        /* 状态机工作模式，已废弃
                         //判断是否在测试任务执行过程中，若是，则处理事件，否则就是已经完成测试任务但未退出微信，此时不能处理事件
                         if (ConfigTest.isCaseRunning == true) {
                             if (ConfigTest.weiXinTextCase == null) {
-                                ConfigTest.weiXinTextCase = new WeiXinTextCase();
+                                ConfigTest.weiXinTextCase = new WeiXinTextCaseOld();
                                 if (ConfigTest.DEBUG) {
-                                    Log.i(TAG, "new WeiXinTextCase()");
-                                    Tools.writeLogFile("new WeiXinTextCase()");
+                                    Log.i(TAG, "new WeiXinTextCaseOld()");
+                                    Tools.writeLogFile("new WeiXinTextCaseOld()");
                                 }
                             }
                             ConfigTest.weiXinTextCase.execute(this, event);
@@ -372,7 +397,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                             }
                         } else {
                             if (isWeiXinItemClicked == false) {
-                                /*try {
+                                *//*try {
                                     Thread.sleep(100);  //操作前后的延时似乎不会影响响应事件的多少，动作过后事件已经产生，处于事件队列中等待处理???之前的测试任务操作和回退操作等可能会引起窗口切换，耗时较长，需等待切换完成再找控件，否则可能会因在窗口切换过程中找不到控件而执行多余的回退操作，这样会把ServiceTest也退出
                                     if (ConfigTest.DEBUG) {
                                         Log.i(TAG, "休眠0.1秒");
@@ -380,7 +405,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                     }
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
-                                }*/
+                                }*//*
                                 AccessibilityNodeInfo serviceTestNode = AccessibilityUtil.findNodeByIdAndPackage(this, "com.cmlab.servicetest:id/appImage", "com.cmlab.servicetest");
                                 if (serviceTestNode != null) {
                                     //如果找到了ServiceTest的控件，说明微信已经退出了，不需要再按回退键和弹出ServiceTest了，可以结束本次测试了
@@ -474,7 +499,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                                     }
                                 }
                             }
-                        }
+                        }*/
                         break;
                     case "WeiXinImage":  //微信图片
                         //采用第一个触发事件来的时候进入处理，等全部测试任务处理完后再退出，即只进来处理一次就完成全部任务
@@ -482,8 +507,8 @@ public class UiControlAccessibilityService extends AccessibilityService {
                         //以后 if ((ConfigTest.caseName != null) && ((ConfigTest.isCaseRunning == true) || (ConfigTest.isAppForeground == true)))
                         //可改为 if (ConfigTest.isCaseRunning == true)
                         //任务结束时修改 ConfigTest.isCaseRunning 为 false
-                        if (weiXinImageCase == null) {
-                            weiXinImageCase = new WeiXinImageCase();
+                        if (ConfigTest.weiXinImageCase == null) {
+                            ConfigTest.weiXinImageCase = new WeiXinImageCase();
                             if (ConfigTest.DEBUG) {
                                 Tools.writeLogFile("new WeiXinImageCase()");
                             }
@@ -491,7 +516,7 @@ public class UiControlAccessibilityService extends AccessibilityService {
                         if (ConfigTest.DEBUG) {
                             Tools.writeLogFile("开始调用WeiXinImageCase.execute方法执行测试任务...");
                         }
-                        boolean result = ConfigTest.weiXinImageCase.execute(this, event);
+                        result = ConfigTest.weiXinImageCase.execute(this, event);
                         if (ConfigTest.DEBUG) {
                             Tools.writeLogFile("测试任务执行完毕！");
                         }

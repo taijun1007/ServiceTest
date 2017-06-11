@@ -278,16 +278,18 @@ public class MainFragment extends Fragment {
 									}
 									switch (testID) {
 										case 10:
-											ConfigTest.caseName = "WeiXinText";
+											ConfigTest.caseName = ConfigTest.WEIXIN_TEXT_CASENAME;
 											ConfigTest.isCaseRunning = true;
+											ConfigTest.isExitingAPP = false;
 											ConfigTest.caseStartTime = System.currentTimeMillis();
 											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time是测试任务运行时间，单位s，实际使用时应是平台下发该参数
 											opanApp(ConfigTest.caseName);
 //											Toast.makeText(getActivity(), "启动微信文本测试", Toast.LENGTH_SHORT).show();
 											break;
 										case 11:
-											ConfigTest.caseName = "WeiXinImage";
+											ConfigTest.caseName = ConfigTest.WEIXIN_IMAGE_CASENAME;
 											ConfigTest.isCaseRunning = true;
+											ConfigTest.isExitingAPP = false;
 											ConfigTest.caseStartTime = System.currentTimeMillis();
 											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time测试任务运行时间，单位s，实际使用时应是平台下发该参数
 											opanApp(ConfigTest.caseName);
@@ -421,9 +423,9 @@ public class MainFragment extends Fragment {
 		//遍历集合中的所有activity，根据输入参数测试任务名（对应要用的APP），找到匹配的APP包名，启动指定的APP
 		String packageName = "";
 		switch (caseName) {
-			case "WeiXinText":
-			case "WeiXinImage":
-				packageName = "com.tencent.mm";
+			case ConfigTest.WEIXIN_TEXT_CASENAME:
+			case ConfigTest.WEIXIN_IMAGE_CASENAME:
+				packageName = ConfigTest.weiXinPackageName;
 				break;
 		}
 		for (ResolveInfo ri : allAPPs) {

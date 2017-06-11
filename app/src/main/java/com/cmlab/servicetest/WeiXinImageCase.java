@@ -702,33 +702,34 @@ public class WeiXinImageCase extends UiautomatorControlCase {
             Tools.writeLogFile("已完成删除操作");
         }
 //        Toast.makeText(context, context.getRootInActiveWindow().getPackageName(), Toast.LENGTH_SHORT).show();
-        for(count = 0; count < 10; count++) { //退出微信，最多按10次回退键
-            node = context.getRootInActiveWindow();
-            if (node != null) {
-                if (node.getPackageName().equals("com.tencent.mm")) {
-                    context.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-                    if (ConfigTest.DEBUG) {
-                        Tools.writeLogFile("仍是微信窗口，按回退键。count==" + count);
-                    }
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    if (ConfigTest.DEBUG) {
-                        Tools.writeLogFile("已退出微信窗口，结束。count==" + count);
-                    }
-                    break;
-                }
-            } else {
-                if (ConfigTest.DEBUG) {
-                    Tools.writeLogFile("获取不到窗口root节点，node==null。count==" + count);
-                    Tools.writeLogFile("微信正在退出最后窗口，切换中，可结束操作，完成！");
-                }
-                break;
-            }
-        }
+        //退出操作改为在accessbilityService中进行，为了释放未处理的event
+//        for(count = 0; count < 10; count++) { //退出微信，最多按10次回退键
+//            node = context.getRootInActiveWindow();
+//            if (node != null) {
+//                if (node.getPackageName().equals("com.tencent.mm")) {
+//                    context.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+//                    if (ConfigTest.DEBUG) {
+//                        Tools.writeLogFile("仍是微信窗口，按回退键。count==" + count);
+//                    }
+//                    try {
+//                        Thread.sleep(3000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    if (ConfigTest.DEBUG) {
+//                        Tools.writeLogFile("已退出微信窗口，结束。count==" + count);
+//                    }
+//                    break;
+//                }
+//            } else {
+//                if (ConfigTest.DEBUG) {
+//                    Tools.writeLogFile("获取不到窗口root节点，node==null。count==" + count);
+//                    Tools.writeLogFile("微信正在退出最后窗口，切换中，可结束操作，完成！");
+//                }
+//                break;
+//            }
+//        }
         return true;
     }
 

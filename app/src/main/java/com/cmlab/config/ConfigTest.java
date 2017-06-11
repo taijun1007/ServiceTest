@@ -27,51 +27,60 @@ public class ConfigTest {
     public static final String locationFile = "/sdcard/ServiceTestLocation.txt";
 
     //测试相关配置----------------------------------------------------------------------
-    //各被监控APP的包名
+    //各被监控APP的包名和应用名
     /**
-     * 微信包名
+     * 微信包名和应用名
      */
     public static final String weiXinPackageName = "com.tencent.mm";
+    public static final String weiXinAPPName = "微信";
 
     /**
-     * 百度音乐包名
+     * 百度音乐包名和应用名
      */
     public static final String baiduMusicPackageName = "com.ting.mp3.android";
+    public static final String baiduMusicAPPName = "百度音乐";
 
     /**
-     * 斗鱼包名
+     * 斗鱼包名和应用名
      */
     public static final String douyuPackageName = "air.tv.douyu.android";
+    public static final String douyuAPPName = "斗鱼";
 
     /**
-     * 电话包名1
+     * 电话包名和应用名1
      */
     public static final String phonePackageName1 = "com.android.phone";
+    public static final String phoneAPPName1 = "电话";
 
     /**
-     * 电话包名2
+     * 电话包名和应用名2
      */
     public static final String phonePackageName2 = "com.android.incallui";
+    public static final String phoneAPPName2 = "电话";
 
     /**
-     * 电话包名3
+     * 电话包名和应用名3
      */
     public static final String phonePackageName3 = "com.android.dialer";
+    public static final String phoneAPPName3 = "电话";
 
     /**
-     * 电话包名4
+     * 电话包名和应用名4
      */
     public static final String phonePackageName4 = "com.android.contacts";
+    public static final String phoneAPPName4 = "电话";
 
     /**
-     * 浏览器包名
+     * 浏览器包名和应用名
      */
     public static final String webBrowserPackageName = "me.android.browser";
+    public static final String webBrowserAPPName = "浏览器";
 
     /**
-     * UC浏览器包名
+     * UC浏览器包名和应用名
      */
     public static final String ucWebBrowserPackageName = "com.UCMobile";
+    public static final String ucWebBrowserAPPName = "UC浏览器";
 
     //测试任务执行控制参数
     /**
@@ -100,6 +109,13 @@ public class ConfigTest {
      * false：未执行/空闲
      */
     public static boolean isCaseRunning = false;
+
+    /**
+     * 是否正在退出APP
+     * true：正在退出APP
+     * false：空闲
+     */
+    public static boolean isExitingAPP = false;
 
     /**
      * 执行测试任务的被监控APP是否在前台
@@ -169,6 +185,17 @@ public class ConfigTest {
      * 按回退键action
      */
     public static final String ACTION_BACK = "back";
+
+    //测试任务CaseName
+    /**
+     * 微信文本CaseName
+     */
+    public static final String WEIXIN_TEXT_CASENAME = "WeiXinText";
+
+    /**
+     * 微信图片CaseName
+     */
+    public static final String WEIXIN_IMAGE_CASENAME = "WeiXinImage";
 
     //微信文本业务参数
     /**

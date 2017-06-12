@@ -238,6 +238,15 @@ public class WeiXinTextCase extends UiautomatorControlCase {
                     if (ConfigTest.DEBUG) {
                         Tools.writeLogFile("切换到键盘");
                     }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    context.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("弹出键盘，按回退键使键盘消失");
+                    }
                 }
                 try {
                     Thread.sleep(300);

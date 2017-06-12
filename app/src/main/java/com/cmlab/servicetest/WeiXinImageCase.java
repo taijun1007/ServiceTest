@@ -156,6 +156,80 @@ public class WeiXinImageCase extends UiautomatorControlCase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //删除聊天记录
+        int findCount = 1;  //如果聊天记录已被人工删除，则最多循环4次（2秒）就不再寻找
+        while (AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/a_7", weiXin_Image_DestID) == null) {
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("未找到目标人物的聊天记录");
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (findCount >= 4) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("2秒内未找到目标人物聊天记录，可能已被删除");
+                }
+                break;
+            } else {
+                findCount++;
+            }
+        }
+        if (AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/a_7", weiXin_Image_DestID) != null) {
+            //找到目标任务聊天记录，删除聊天记录
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("找到目标人物的聊天记录");
+            }
+            boolean isLongClicked = false;
+            while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/do", "删除该聊天", ConfigTest.NODE_FATHER)) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未找到“删除该聊天”，窗口未弹出");
+                }
+                if (!isLongClicked) {
+                    AccessibilityUtil.findAndPerformLongClickByIdAndText(context, "com.tencent.mm:id/a_7", weiXin_Image_DestID, ConfigTest.NODE_FATHER);
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("长按目标人物的聊天记录");
+                    }
+                    isLongClicked = true;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/bgu", "微信") == null) {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("窗口已弹出，看不见左下角微信标签");
+                    }
+                } else {
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("窗口未弹出，可以看见左下角微信标签");
+                    }
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("窗口已弹出，找到“删除该聊天”，点击");
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            while (AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/bgu", "微信") == null) {
+                if (ConfigTest.DEBUG) {
+                    Tools.writeLogFile("未完成删除操作，请稍候……");
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ConfigTest.DEBUG) {
+                Tools.writeLogFile("已完成删除操作");
+            }
+        }
         if (AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/a_7", weiXin_Image_DestID, ConfigTest.NODE_FATHER)) {
             //找到目标人物的已有聊天，点击进入聊天界面
             if (ConfigTest.DEBUG) {
@@ -625,81 +699,12 @@ public class WeiXinImageCase extends UiautomatorControlCase {
         }
         ConfigTest.caseEndTime = System.currentTimeMillis();  //实际测试结束时间
         db.close();
-        //删除聊天记录
+        //退出到微信聊天列表界面，为了后续点击“我”触发特征event
         context.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/bgu", "微信", ConfigTest.NODE_FATHER)) {
-            if (ConfigTest.DEBUG) {
-                Tools.writeLogFile("未找到左下角的微信标签");
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        if (ConfigTest.DEBUG) {
-            Tools.writeLogFile("找到了左下角的微信标签，点击");
-        }
-        while (AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/a_7", weiXin_Image_DestID) == null) {
-            if (ConfigTest.DEBUG) {
-                Tools.writeLogFile("未找到目标人物的聊天记录");
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        if (ConfigTest.DEBUG) {
-            Tools.writeLogFile("找到目标人物的聊天记录");
-        }
-        boolean isLongClicked = false;
-        while (!AccessibilityUtil.findAndPerformClickByIdAndText(context, "com.tencent.mm:id/do", "删除该聊天", ConfigTest.NODE_FATHER)) {
-            if (ConfigTest.DEBUG) {
-                Tools.writeLogFile("未找到“删除该聊天”，窗口未弹出");
-            }
-            if (!isLongClicked) {
-                AccessibilityUtil.findAndPerformLongClickByIdAndText(context, "com.tencent.mm:id/a_7", weiXin_Image_DestID, ConfigTest.NODE_FATHER);
-                if (ConfigTest.DEBUG) {
-                    Tools.writeLogFile("长按目标人物的聊天记录");
-                }
-                isLongClicked = true;
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/bgu", "微信") == null) {
-                if (ConfigTest.DEBUG) {
-                    Tools.writeLogFile("窗口已弹出，看不见左下角微信标签");
-                }
-            } else {
-                if (ConfigTest.DEBUG) {
-                    Tools.writeLogFile("窗口未弹出，可以看见左下角微信标签");
-                }
-            }
-        }
-        if (ConfigTest.DEBUG) {
-            Tools.writeLogFile("窗口已弹出，找到“删除该聊天”，点击");
-        }
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        while (AccessibilityUtil.findNodeByIdAndText(context, "com.tencent.mm:id/bgu", "微信") == null) {
-            if (ConfigTest.DEBUG) {
-                Tools.writeLogFile("未完成删除操作，请稍候……");
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        if (ConfigTest.DEBUG) {
-            Tools.writeLogFile("已完成删除操作");
         }
 //        Toast.makeText(context, context.getRootInActiveWindow().getPackageName(), Toast.LENGTH_SHORT).show();
         //退出操作改为在accessbilityService中进行，为了释放未处理的event

@@ -1,5 +1,6 @@
 package com.cmlab.servicetest;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
@@ -32,8 +33,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.cmlab.config.ConfigTest.moCallCase;
-
 public class MainFragment extends Fragment {
 	public static final String TAG = "MainFragment";
 	private static final String JSON_DIALNUMBER = "Call_Send_DestID";
@@ -58,6 +57,8 @@ public class MainFragment extends Fragment {
 	private static final String JSON_PING_URL = "Ping_Send_DestIP";
 	private static final String JSON_PING_COUNT = "Ping_Send_Packages";
 	private static final String JSON_PINGTASKCHECK = "PingTaskCheck";
+
+	private Activity activity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -315,13 +316,14 @@ public class MainFragment extends Fragment {
 													Tools.writeLogFile("new MOCallCase()");
 												}
 											}
+											activity = getActivity();
 											ConfigTest.moCallThread = new Thread() {
 												@Override
 												public void run() {
 													if (ConfigTest.DEBUG) {
 														Tools.writeLogFile("开始执行打电话（主叫）测试例");
 													}
-													boolean result = ConfigTest.moCallCase.execute();
+													boolean result = ConfigTest.moCallCase.execute(activity);
 													if (result) {
 														if (ConfigTest.DEBUG) {
 															Tools.writeLogFile("打电话（主叫）测试例执行成功！");

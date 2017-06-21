@@ -260,6 +260,47 @@ public class ConfigTest {
      */
     public static final String JSON_KEY_WEIXIN_IMAGE_ORIGIN = "WeiXin_Image_Origin";
 
+    //打电话（主叫）业务参数
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的电话号码的key
+     */
+    public static final String JSON_KEY_DIAL_NUMBER = "Call_Send_DestID";
+
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的通话时长的key
+     */
+    public static final String JSON_KEY_DIAL_DURATION = "Call_Send_HoldTime";
+
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的重复次数的key
+     */
+    public static final String JSON_KEY_DIAL_REPEAT_TIMES = "Call_Send_ShortRptTimes";
+
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的重复呼叫间隔的key
+     */
+    public static final String JSON_KEY_DIAL_REPEAT_INTERVAL = "Call_Send_RptInterval";
+
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的最大失败次数的key
+     */
+    public static final String JSON_KEY_DIAL_MAX_FAILURE = "Call_Send_MaxFailure";
+
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的呼叫类型的key
+     */
+    public static final String JSON_KEY_DIAL_TYPE = "Call_Send_Type";
+
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的测试总时长的key
+     */
+    public static final String JSON_KEY_DIAL_TIME = "Call_Send_ShortDuration";
+
+    /**
+     * 业务参数文件中对应打电话（主叫）业务的等待接通忍耐时长的key
+     */
+    public static final String JSON_KEY_DIAL_WAITING_TOLERANCE = "Call_Send_WaitingTolerance";
+
     //操作节点的级别
     /**
      * 匹配节点自身

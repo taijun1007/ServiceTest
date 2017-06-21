@@ -1,5 +1,6 @@
 package com.cmlab.config;
 
+import com.cmlab.servicetest.MOCallCase;
 import com.cmlab.servicetest.WeiXinImageCase;
 import com.cmlab.servicetest.WeiXinTextCase;
 
@@ -197,6 +198,11 @@ public class ConfigTest {
      */
     public static final String WEIXIN_IMAGE_CASENAME = "WeiXinImage";
 
+    /**
+     * 打电话（主叫）CaseName
+     */
+    public static final String MOCALL_CASENAME = "mocall";
+
     //微信文本业务参数
     /**
      * 业务参数文件中对应微信文本业务的发送对象的key
@@ -285,5 +291,15 @@ public class ConfigTest {
      * 微信图片测试例执行实例
      */
     public static WeiXinImageCase weiXinImageCase = null;
+
+    /**
+     * 打电话（主叫）测试例执行实例
+     */
+    public static MOCallCase moCallCase = null;
+
+    /**
+     * 打电话（主叫）执行子线程
+     */
+    public static Thread moCallThread = null;
 
 }

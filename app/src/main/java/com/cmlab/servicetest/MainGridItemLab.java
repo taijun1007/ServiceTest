@@ -36,6 +36,8 @@ public class MainGridItemLab {
 		mGridItems.add(gi);
 		gi = new GridItem(R.drawable.weixinimage, R.string.weixinimage);
 		mGridItems.add(gi);
+		gi = new GridItem(R.drawable.mocall, R.string.mocall);
+		mGridItems.add(gi);
 	}
 	
 	public static MainGridItemLab get(Context c) {

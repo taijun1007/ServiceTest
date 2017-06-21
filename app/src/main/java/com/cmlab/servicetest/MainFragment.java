@@ -32,6 +32,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.cmlab.config.ConfigTest.moCallCase;
+
 public class MainFragment extends Fragment {
 	public static final String TAG = "MainFragment";
 	private static final String JSON_DIALNUMBER = "Call_Send_DestID";
@@ -214,6 +216,9 @@ public class MainFragment extends Fragment {
 				case 11:
 					doTest(getActivity(), 11);
 					break;
+				case 12:
+					doTest(getActivity(), 12);
+					break;
 				default:
 					Toast.makeText(getActivity(), R.string.main_switch_default, Toast.LENGTH_SHORT).show();
 				}
@@ -294,6 +299,45 @@ public class MainFragment extends Fragment {
 											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time测试任务运行时间，单位s，实际使用时应是平台下发该参数
 											opanApp(ConfigTest.caseName);
 //					                        Toast.makeText(getActivity(), "启动微信图片测试", Toast.LENGTH_SHORT).show();
+											break;
+										case 12:
+											ConfigTest.caseName = ConfigTest.MOCALL_CASENAME;
+											ConfigTest.isCaseRunning = true;
+											ConfigTest.isExitingAPP = false;
+											ConfigTest.caseStartTime = System.currentTimeMillis();
+											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;
+											if (ConfigTest.DEBUG) {
+												Tools.writeLogFile("==================================================");
+											}
+											if (ConfigTest.moCallCase == null) {
+												ConfigTest.moCallCase = new MOCallCase();
+												if (ConfigTest.DEBUG) {
+													Tools.writeLogFile("new MOCallCase()");
+												}
+											}
+											ConfigTest.moCallThread = new Thread() {
+												@Override
+												public void run() {
+													if (ConfigTest.DEBUG) {
+														Tools.writeLogFile("开始执行打电话（主叫）测试例");
+													}
+													boolean result = ConfigTest.moCallCase.execute();
+													if (result) {
+														if (ConfigTest.DEBUG) {
+															Tools.writeLogFile("打电话（主叫）测试例执行成功！");
+														}
+													} else {
+														if (ConfigTest.DEBUG) {
+															Tools.writeLogFile("打电话（主叫）测试例执行失败！");
+														}
+													}
+													ConfigTest.isCaseRunning = false;
+												}
+											};
+											ConfigTest.moCallThread.start();
+											if (ConfigTest.DEBUG) {
+												Tools.writeLogFile("创建并启动打电话（主叫）测试例执行子线程");
+											}
 											break;
 									}
 									dialog.cancel();

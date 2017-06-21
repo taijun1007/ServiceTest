@@ -33,6 +33,8 @@ public class MainActivity extends SingleFragmentActivity {
                 .setAutoCancel(false)
                 .build();
         nm.notify(NOTIFICATION_ID,notify);
+        String title = getApplication().getString(R.string.main_activity_name) + "(" + getApplication().getString(R.string.version) + ")";
+        this.setTitle(title);
     }
 
     @Override

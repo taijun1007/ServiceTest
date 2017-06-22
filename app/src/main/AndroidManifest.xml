@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cmlab.servicetest"
     android:versionCode="1"
-    android:versionName="@string/version" >
+    android:versionName="DebugVersion" >
+    <!--android:versionName="@string/version" >  发布正式版本（Build->Build APK）-->
+    <!--android:versionName="DebugVersion" >  调试（直接点击Run按钮）-->
 
     <uses-sdk
         android:minSdkVersion="18"

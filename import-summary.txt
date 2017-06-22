@@ -31,6 +31,9 @@ Eclipse projects. Here's how the projects were restructured:
 * assets\ => app\src\main\assets
 * res\ => app\src\main\res\
 * src\ => app\src\main\java\
+* src\android\telephony\NeighboringCellInfo.aidl => app\src\main\aidl\android\telephony\NeighboringCellInfo.aidl
+* src\com\android\internal\telephony\ITelephony.aidl => app\src\main\aidl\com\android\internal\telephony\ITelephony.aidl
+* src\com\android\internal\telephony\ITelephonyListener.aidl => app\src\main\aidl\com\android\internal\telephony\ITelephonyListener.aidl
 
 Next Steps:
 -----------

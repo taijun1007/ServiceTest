@@ -1,6 +1,7 @@
 package com.cmlab.config;
 
 import com.cmlab.servicetest.MOCallCase;
+import com.cmlab.servicetest.MOCallCaseAccess;
 import com.cmlab.servicetest.WeiXinImageCase;
 import com.cmlab.servicetest.WeiXinTextCase;
 
@@ -103,6 +104,13 @@ public class ConfigTest {
      * setup.json文件中对应业务执行参数文件的key
      */
     public static final String JSON_KEY_PARAFILE = "testcaseparafile";
+
+    /**
+     * 是否收到平台下发的主动停止命令
+     * true：收到命令，停止测试
+     * false：未收到命令，继续测试
+     */
+    public static boolean isStopCMDReceived = false;
 
     /**
      * 是否正在执行测试任务
@@ -342,5 +350,10 @@ public class ConfigTest {
      * 打电话（主叫）执行子线程
      */
     public static Thread moCallThread = null;
+
+    /**
+     * 打电话（主叫）测试例辅助功能执行实例
+     */
+    public static MOCallCaseAccess moCallCaseAccess = null;
 
 }

@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +61,7 @@ public class MainFragment extends Fragment {
 	private static final String JSON_PINGTASKCHECK = "PingTaskCheck";
 
 	private Activity activity;
+    private MyHandler myHandler = new MyHandler();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -287,8 +290,12 @@ public class MainFragment extends Fragment {
 											ConfigTest.caseName = ConfigTest.WEIXIN_TEXT_CASENAME;
 											ConfigTest.isCaseRunning = true;
 											ConfigTest.isExitingAPP = false;
+                                            ConfigTest.isStopCMDReceived = false;
 											ConfigTest.caseStartTime = System.currentTimeMillis();
 											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time是测试任务运行时间，单位s，实际使用时应是平台下发该参数
+                                            if (ConfigTest.DEBUG) {
+                                                Tools.writeLogFile("==================================================");
+                                            }
 											opanApp(ConfigTest.caseName);
 //											Toast.makeText(getActivity(), "启动微信文本测试", Toast.LENGTH_SHORT).show();
 											break;
@@ -296,8 +303,12 @@ public class MainFragment extends Fragment {
 											ConfigTest.caseName = ConfigTest.WEIXIN_IMAGE_CASENAME;
 											ConfigTest.isCaseRunning = true;
 											ConfigTest.isExitingAPP = false;
+                                            ConfigTest.isStopCMDReceived = false;
 											ConfigTest.caseStartTime = System.currentTimeMillis();
 											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;  //time测试任务运行时间，单位s，实际使用时应是平台下发该参数
+                                            if (ConfigTest.DEBUG) {
+                                                Tools.writeLogFile("==================================================");
+                                            }
 											opanApp(ConfigTest.caseName);
 //					                        Toast.makeText(getActivity(), "启动微信图片测试", Toast.LENGTH_SHORT).show();
 											break;
@@ -305,6 +316,7 @@ public class MainFragment extends Fragment {
 											ConfigTest.caseName = ConfigTest.MOCALL_CASENAME;
 											ConfigTest.isCaseRunning = true;
 											ConfigTest.isExitingAPP = false;
+                                            ConfigTest.isStopCMDReceived = false;
 											ConfigTest.caseStartTime = System.currentTimeMillis();
 											ConfigTest.caseEndTime = ConfigTest.caseStartTime + time * 1000;
 											if (ConfigTest.DEBUG) {
@@ -328,10 +340,14 @@ public class MainFragment extends Fragment {
 														if (ConfigTest.DEBUG) {
 															Tools.writeLogFile("打电话（主叫）测试例执行成功！");
 														}
+//														Toast.makeText(activity, "打电话（主叫）测试例执行成功！", Toast.LENGTH_SHORT).show();
+                                                        myHandler.obtainMessage(1).sendToTarget();
 													} else {
 														if (ConfigTest.DEBUG) {
 															Tools.writeLogFile("打电话（主叫）测试例执行失败！");
 														}
+//                                                        Toast.makeText(activity, "打电话（主叫）测试例执行失败！", Toast.LENGTH_SHORT).show();
+                                                        myHandler.obtainMessage(0).sendToTarget();
 													}
 													ConfigTest.isCaseRunning = false;
 												}
@@ -486,5 +502,19 @@ public class MainFragment extends Fragment {
 			}
 		}
 	}
+
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:  //success
+                    Toast.makeText(activity, "打电话（主叫）测试例执行成功！", Toast.LENGTH_SHORT).show();
+                    break;
+                case 0:  //fail
+                    Toast.makeText(activity, "打电话（主叫）测试例执行失败！", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
 
 }

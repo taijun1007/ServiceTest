@@ -1,11 +1,8 @@
 package com.cmlab.servicetest;
 
-import java.util.ArrayList;
-
 import android.annotation.TargetApi;
 import android.app.IntentService;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +12,9 @@ import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.format.Time;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
 public class ClockService extends IntentService {
@@ -66,7 +66,8 @@ public class ClockService extends IntentService {
 		// TODO Auto-generated method stub
 		while(!isOver) {
 			if (isOneSecFinish == true) {
-				isOneSecFinish = false;
+                Log.v(TAG, "1秒1个，测试需要");
+                isOneSecFinish = false;
 				lastTickMillis = SystemClock.elapsedRealtime();
 				//broadcast the current time
 				Time time = new Time();

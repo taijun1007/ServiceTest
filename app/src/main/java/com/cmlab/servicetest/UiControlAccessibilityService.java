@@ -49,9 +49,6 @@ public class UiControlAccessibilityService extends AccessibilityService {
         //  开始进行退出APP操作（如点返回键），即使后续还有event，也不多了，应该不会使得切换APP时的黑屏时间太长。）
         //只有开始测试任务后，才会依次进入执行阶段和退出APP阶段，平时手动操作APP时产生的event不会进入任何阶段，全部被忽略。
         if (ConfigTest.isCaseRunning == true) { //1-测试任务执行阶段
-            if (ConfigTest.DEBUG) {
-                Tools.writeLogFile("===========================================");
-            }
             boolean result;
             switch (ConfigTest.caseName) {
                 case ConfigTest.WEIXIN_TEXT_CASENAME:  //微信文本
@@ -144,6 +141,21 @@ public class UiControlAccessibilityService extends AccessibilityService {
                     Toast.makeText(this, "进入退出APP阶段", Toast.LENGTH_SHORT).show();
                     if (ConfigTest.DEBUG) {
                         Tools.writeLogFile("找到了“我”标签，点击，触发唯一可识别event，准备进入退出APP阶段");
+                    }
+                    break;
+                case ConfigTest.MOCALL_CASENAME:  //打电话（主叫）
+                    if (ConfigTest.moCallCaseAccess == null) {
+                        ConfigTest.moCallCaseAccess = new MOCallCaseAccess();
+                        if (ConfigTest.DEBUG) {
+                            Tools.writeLogFile("new MOCallCaseAccess()");
+                        }
+                    }
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("开始调用MOCallCaseAccess.execute方法处理打电话时的弹框...");
+                    }
+                    ConfigTest.moCallCaseAccess.execute(this, event);
+                    if (ConfigTest.DEBUG) {
+                        Tools.writeLogFile("弹框处理完毕！");
                     }
                     break;
             }
